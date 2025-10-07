@@ -1,267 +1,296 @@
-import React from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
-import { CheckCircle2, BookOpen, ListChecks, Lightbulb, Sparkles } from "lucide-react";
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Build-a-Bot Vocabulary &amp; Prompt Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      .tab-panel[hidden] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-slate-900">
+    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-4">
+        <svg class="h-6 w-6 text-slate-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6.5 18.5 10 15" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="m7 4 10 16" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M7.5 9 10 5l4 6" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="m14 9 4 6-2.5 3.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <div>
+          <h1 class="text-xl font-bold md:text-2xl">Build-a-Bot Vocabulary &amp; Prompt Guide</h1>
+          <p class="text-xs text-slate-600 md:text-sm">
+            Design how your AI should teach you — with clear tone, connections, approach, motivation, and pacing.
+          </p>
+        </div>
+      </div>
+    </header>
 
-// --- Utility components ---
-const Section = ({ id, title, children }: { id: string; title: string; children: React.ReactNode }) => (
-  <section id={id} className="scroll-mt-24">
-    <h2 className="text-2xl md:text-3xl font-bold mb-4">{title}</h2>
-    <Separator className="mb-4" />
-    {children}
-  </section>
-);
-
-const Keyword = ({ word, explain, example }: { word: string; explain: string; example: string }) => (
-  <Card className="shadow-sm">
-    <CardHeader className="pb-2">
-      <CardTitle className="text-lg">{word}</CardTitle>
-    </CardHeader>
-    <CardContent className="space-y-2">
-      <p><span className="font-medium">Easy explanation:</span> {explain}</p>
-      <p className="text-sm italic opacity-80">Example prompt: {example}</p>
-    </CardContent>
-  </Card>
-);
-
-export default function BuildABotGuide() {
-  return (
-    <div className="min-h-screen bg-white text-gray-900">
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b bg-white/90 backdrop-blur">
-        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center gap-3">
-          <Sparkles className="h-6 w-6" />
-          <div>
-            <h1 className="text-xl md:text-2xl font-bold leading-tight">Build‑a‑Bot Vocabulary & Prompt Guide</h1>
-            <p className="text-xs md:text-sm text-gray-600">Design how your AI should teach you — with clear tone, connections, approach, motivation, and pacing.</p>
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-10 md:grid-cols-[280px_1fr]">
+      <aside class="md:sticky md:top-28">
+        <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
+          <div class="border-b border-slate-200 px-6 py-4">
+            <div class="flex items-center gap-2 text-base font-semibold text-slate-800">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 4h16v16H4z" opacity="0.4"></path>
+                <path d="M8 8h8M8 12h8M8 16h5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              Navigation
+            </div>
+          </div>
+          <div class="px-6 py-4 text-sm text-slate-700">
+            <nav class="flex flex-col gap-2">
+              <a href="#design" class="transition hover:text-slate-900 hover:underline">Design Concept</a>
+              <a href="#examples" class="transition hover:text-slate-900 hover:underline">Example Prompts</a>
+              <a href="#guiding" class="transition hover:text-slate-900 hover:underline">Guiding Questions</a>
+              <a href="#vocab" class="transition hover:text-slate-900 hover:underline">Vocabulary List</a>
+            </nav>
           </div>
         </div>
-      </header>
+      </aside>
 
-      {/* Layout */}
-      <div className="mx-auto max-w-7xl px-4 py-6 grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6">
-        {/* Sidebar */}
-        <aside className="md:sticky md:top-20 h-fit">
-          <Card className="shadow-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base flex items-center gap-2"><BookOpen className="h-4 w-4"/>Navigation</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <nav className="flex flex-col gap-2 text-sm">
-                <a href="#design" className="hover:underline">Design Concept</a>
-                <a href="#examples" className="hover:underline">Example Prompts</a>
-                <a href="#guiding" className="hover:underline">Guiding Questions</a>
-                <a href="#vocab" className="hover:underline">Vocabulary List</a>
-              </nav>
-            </CardContent>
-          </Card>
-        </aside>
-
-        {/* Main content */}
-        <main className="space-y-12">
-          {/* Design Concept */}
-          <Section id="design" title="Design Concept (Blueprint Build‑a‑Bot)">
-            <div className="grid gap-4 md:grid-cols-2">
-              <Card className="shadow-sm">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg">Concept Overview</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2 text-sm text-gray-700">
-                  <p>Use a blueprint/exploded‑view robot to represent customizable learning preferences. Each module maps to a teaching setting:</p>
-                  <ul className="list-disc ml-5 space-y-1">
-                    <li><b>Brain Chip</b> → Tone/Personality</li>
-                    <li><b>Vision Sensor</b> → Knowledge Connections to real life</li>
-                    <li><b>Tools Pack</b> → Teaching Approach</li>
-                    <li><b>Energy Source</b> → Motivation & Interests</li>
-                    <li><b>Gear Settings</b> → Pacing & Challenge</li>
-                  </ul>
-                  <p className="pt-2">Placeholders: add your final blueprint image, school logo, and quick instructions for students here.</p>
-                </CardContent>
-              </Card>
-
-              <Card className="shadow-sm">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg">Classroom Flow (at a glance)</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-gray-700 space-y-2">
-                  <ol className="list-decimal ml-5 space-y-1">
-                    <li>Students complete a short interest survey.</li>
-                    <li>Build‑a‑Bot activity to pick modules.</li>
-                    <li>Browse tone/connection vocabulary.</li>
-                    <li>Read example prompts (tabs), then draft their own.</li>
-                    <li>Peer‑review and refine.</li>
-                  </ol>
-                </CardContent>
-              </Card>
+      <main class="space-y-16">
+        <section id="design" class="scroll-mt-24">
+          <h2 class="text-2xl font-bold md:text-3xl">Design Concept (Blueprint Build-a-Bot)</h2>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Concept Overview</h3>
+              </div>
+              <div class="space-y-3 px-6 py-4 text-sm text-slate-700">
+                <p>
+                  Use a blueprint/exploded-view robot to represent customizable learning preferences. Each module maps to a
+                  teaching setting:
+                </p>
+                <ul class="ml-5 list-disc space-y-1">
+                  <li><span class="font-semibold">Brain Chip</span> → Tone/Personality</li>
+                  <li><span class="font-semibold">Vision Sensor</span> → Knowledge Connections to real life</li>
+                  <li><span class="font-semibold">Tools Pack</span> → Teaching Approach</li>
+                  <li><span class="font-semibold">Energy Source</span> → Motivation &amp; Interests</li>
+                  <li><span class="font-semibold">Gear Settings</span> → Pacing &amp; Challenge</li>
+                </ul>
+                <p class="pt-2">
+                  Placeholders: add your final blueprint image, school logo, and quick instructions for students here.
+                </p>
+              </div>
             </div>
-          </Section>
-
-          {/* Example Prompts with Tabs */}
-          <Section id="examples" title="Example Prompts (Tabbed)">
-            <Tabs defaultValue="ex1" className="w-full">
-              <TabsList className="flex flex-wrap gap-2">
-                <TabsTrigger value="ex1">Example 1</TabsTrigger>
-                <TabsTrigger value="ex2">Example 2</TabsTrigger>
-                <TabsTrigger value="ex3">Example 3</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="ex1" className="mt-4">
-                <Card className="shadow-sm">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Example 1 — Expert · Daily Life · Worked Example → Try It · Gaming · Easy → Hard</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4 text-sm text-gray-800">
-                    <p><b>When we are in study mode, use these preferences.</b></p>
-                    <p><b>Tone:</b> Use a knowledgeable expert voice that is clear and patient, leaning slightly professional rather than casual.</p>
-                    <p><b>Knowledge Connection:</b> Always relate ideas to everyday situations I meet at home, school, or shopping.</p>
-                    <p><b>Approach:</b> Show a complete worked example, then give me a similar problem to try. Check my attempt and explain mistakes.</p>
-                    <p><b>Motivation/Interest:</b> When helpful, use gaming themes like levels, strategy, and trade‑offs to keep me engaged.</p>
-                    <p><b>Pacing:</b> Start easy and increase difficulty gradually once I succeed with each step.</p>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="ex2" className="mt-4">
-                <Card className="shadow-sm">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Example 2 — Storyteller · Hobbies + Careers · Creative Task · Music + Cooking + Future Skills · Quick Wins</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4 text-sm text-gray-800">
-                    <p><b>When guiding me in study mode, please follow these preferences.</b></p>
-                    <p><b>Tone:</b> Tell short, clear stories to explain ideas, keeping it imaginative but informative.</p>
-                    <p><b>Knowledge Connection:</b> Link concepts to my hobbies and show how they could appear in real jobs.</p>
-                    <p><b>Approach:</b> Use small creative tasks to let me build or design something that applies the concept.</p>
-                    <p><b>Motivation/Interest:</b> Draw from music, cooking, and preparing future skills whenever it fits naturally.</p>
-                    <p><b>Pacing:</b> Provide frequent small wins so I feel steady progress.</p>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="ex3" className="mt-4">
-                <Card className="shadow-sm">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Example 3 — Expert · Careers + Values · Big Picture First · Education + Technology + Law/Policy · Deep Dives</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4 text-sm text-gray-800">
-                    <p><b>While supporting me in learning mode, please follow these guidelines.</b></p>
-                    <p><b>Tone:</b> Professional and precise with well‑organized structure.</p>
-                    <p><b>Knowledge Connection:</b> Show how the topic connects to career paths and the values I care about, like fairness and responsibility.</p>
-                    <p><b>Approach:</b> Start with the overall framework, then move into components.</p>
-                    <p><b>Motivation/Interest:</b> Use examples from education, technology, and policy to make the learning feel impactful.</p>
-                    <p><b>Pacing:</b> Go deep rather than fast; provide context and implications before advancing.</p>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
-          </Section>
-
-          {/* Guiding Questions (placeholder) */}
-          <Section id="guiding" title="Guiding Questions (Student Worksheet Placeholders)">
-            <div className="grid gap-4 md:grid-cols-2">
-              <Card className="shadow-sm">
-                <CardHeader className="pb-2"><CardTitle className="text-lg">Before You Write</CardTitle></CardHeader>
-                <CardContent className="text-sm text-gray-700 space-y-2">
-                  <ul className="list-disc ml-5 space-y-1">
-                    <li>What outcome do you want (understand/apply/create)?</li>
-                    <li>Which interests or life skills should new topics connect to?</li>
-                    <li>What tone helps you stay focused?</li>
-                    <li>Which formats help (tables, diagrams, step‑by‑step)?</li>
-                    <li>How should the challenge change if it’s too easy or too hard?</li>
-                  </ul>
-                </CardContent>
-              </Card>
-              <Card className="shadow-sm">
-                <CardHeader className="pb-2"><CardTitle className="text-lg">Copy‑into‑Prompt Frame</CardTitle></CardHeader>
-                <CardContent className="text-sm text-gray-700 space-y-2">
-                  <p><span className="font-medium">Starter:</span> When we are in study mode, follow these preferences.</p>
-                  <p><span className="font-medium">Tone:</span> …  <span className="font-medium">Connections:</span> …  <span className="font-medium">Approach:</span> …</p>
-                  <p><span className="font-medium">Motivation:</span> …  <span className="font-medium">Pacing:</span> …</p>
-                </CardContent>
-              </Card>
+            <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Classroom Flow (at a glance)</h3>
+              </div>
+              <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
+                <ol class="ml-5 list-decimal space-y-1">
+                  <li>Students complete a short interest survey.</li>
+                  <li>Build-a-Bot activity to pick modules.</li>
+                  <li>Browse tone/connection vocabulary.</li>
+                  <li>Read example prompts (tabs), then draft their own.</li>
+                  <li>Peer-review and refine.</li>
+                </ol>
+              </div>
             </div>
-          </Section>
-
-          {/* Vocabulary (Tabbed) */}
-          <Section id="vocab" title="Vocabulary List (Tabbed by Parameter)">
-            <Tabs defaultValue="tone" className="w-full">
-              <TabsList className="flex flex-wrap gap-2">
-                <TabsTrigger value="tone">Tone</TabsTrigger>
-                <TabsTrigger value="connections">Knowledge Connections</TabsTrigger>
-                <TabsTrigger value="approach">Approach</TabsTrigger>
-                <TabsTrigger value="motivation">Motivation & Interests</TabsTrigger>
-                <TabsTrigger value="pacing">Pacing</TabsTrigger>
-              </TabsList>
-
-              {/* Tone tab */}
-              <TabsContent value="tone" className="mt-4 space-y-6">
-                <h3 className="text-xl font-semibold">Expert</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Keyword word="Precise" explain="very exact and clear" example="Please explain concepts in a precise way so that every detail is correct and easy to follow."/>
-                  <Keyword word="Logical" explain="based on reason and clear thinking" example="Give explanations that are logical, showing each step in clear order."/>
-                  <Keyword word="Formal" explain="serious and professional style" example="Use a formal tone as if writing an academic explanation."/>
-                  <Keyword word="Confident" explain="sure and certain" example="Answer in a confident tone so I can trust the information."/>
-                  <Keyword word="Structured" explain="well organized, step by step" example="Organize answers in a structured way from basics to advanced."/>
-                </div>
-
-                <h3 className="text-xl font-semibold mt-8">Coach</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Keyword word="Encouraging" explain="supportive; helps you keep going" example="Use an encouraging tone so I feel motivated even if I make mistakes."/>
-                  <Keyword word="Motivational" explain="adds energy and inspiration" example="Be motivational by reminding me that progress is possible if I stay focused."/>
-                  <Keyword word="Direct" explain="clear and straight to the point" example="Be direct in your answers so I don’t get lost in extra details."/>
-                  <Keyword word="Firm" explain="strong and steady" example="Keep a firm tone to guide me when I get distracted."/>
-                  <Keyword word="Supportive" explain="caring and helpful" example="Sound supportive so I feel safe asking questions."/>
-                </div>
-
-                <h3 className="text-xl font-semibold mt-8">Study Buddy</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Keyword word="Casual" explain="relaxed, everyday style" example="Use a casual style so it feels like I’m learning with a friend."/>
-                  <Keyword word="Friendly" explain="warm and kind" example="Keep your answers friendly so I feel comfortable while studying."/>
-                  <Keyword word="Relaxed" explain="calm, not rushed" example="Speak in a relaxed way to reduce stress on hard topics."/>
-                  <Keyword word="Approachable" explain="easy to talk to" example="Be approachable so I feel free to ask follow‑up questions."/>
-                  <Keyword word="Simple" explain="easy to understand" example="Explain in a simple way using short sentences and clear examples."/>
-                </div>
-
-                <h3 className="text-xl font-semibold mt-8">Storyteller</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Keyword word="Imaginative" explain="creative, paints pictures in the mind" example="Teach in an imaginative way with creative examples that paint a picture."/>
-                  <Keyword word="Playful" explain="fun and light" example="Make your tone playful so learning feels enjoyable."/>
-                  <Keyword word="Engaging" explain="holds attention" example="Be engaging so I stay focused and want to continue."/>
-                  <Keyword word="Descriptive" explain="rich in detail" example="Give descriptive examples that help me see the idea clearly."/>
-                  <Keyword word="Expressive" explain="shows feeling" example="Use an expressive tone so I feel the importance of the lesson."/>
-                </div>
-              </TabsContent>
-
-              {/* Knowledge Connections tab (placeholder content) */}
-              <TabsContent value="connections" className="mt-4 space-y-4">
-                <p className="text-sm text-gray-700">Add vocabulary for connecting to Hobbies, Daily Life, Jobs/Careers, and Values. (Placeholders ready for your lists.)</p>
-              </TabsContent>
-
-              {/* Approach tab (placeholder) */}
-              <TabsContent value="approach" className="mt-4 space-y-4">
-                <p className="text-sm text-gray-700">Add vocabulary for teaching approaches: Step‑by‑Step, Big Picture First, Worked Example → Try It, Practice Quiz, Creative Task. (Placeholders.)</p>
-              </TabsContent>
-
-              {/* Motivation tab (placeholder) */}
-              <TabsContent value="motivation" className="mt-4 space-y-4">
-                <p className="text-sm text-gray-700">Add vocabulary for interests and motivations (e.g., Sports, Music, Gaming, Cooking, Future Skills). (Placeholders.)</p>
-              </TabsContent>
-
-              {/* Pacing tab (placeholder) */}
-              <TabsContent value="pacing" className="mt-4 space-y-4">
-                <p className="text-sm text-gray-700">Add vocabulary for pacing and challenge (Easy → Hard, Hard → Easy, Quick Wins, Deep Dives). (Placeholders.)</p>
-              </TabsContent>
-            </Tabs>
-          </Section>
-
-          {/* Footer */}
-          <div className="text-xs text-gray-500 py-6">
-            Built for classroom use • Sidebar links jump to each section • Tabs organize examples and vocabulary.
           </div>
-        </main>
-      </div>
+        </section>
+
+        <section id="examples" class="scroll-mt-24">
+          <h2 class="text-2xl font-bold md:text-3xl">Example Prompts (Tabbed)</h2>
+          <div class="mt-5 flex flex-wrap gap-2" role="tablist" aria-label="Example prompts">
+            <button
+              class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              role="tab"
+              aria-selected="true"
+              aria-controls="tab-ex1"
+              id="tab-btn-ex1"
+            >
+              Example 1
+            </button>
+            <button
+              class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-ex2"
+              id="tab-btn-ex2"
+            >
+              Example 2
+            </button>
+            <button
+              class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-ex3"
+              id="tab-btn-ex3"
+            >
+              Example 3
+            </button>
+          </div>
+
+          <div class="mt-4 space-y-4">
+            <div id="tab-ex1" class="tab-panel rounded-lg border border-slate-200 bg-white shadow-sm" role="tabpanel" aria-labelledby="tab-btn-ex1">
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Example 1 — Expert · Daily Life · Worked Example → Try It · Gaming · Easy → Hard</h3>
+              </div>
+              <div class="space-y-3 px-6 py-4 text-sm text-slate-800">
+                <p><strong>When we are in study mode, use these preferences.</strong></p>
+                <p><strong>Tone:</strong> Use a knowledgeable expert voice that is clear and patient, leaning slightly professional rather than casual.</p>
+                <p><strong>Knowledge Connection:</strong> Always relate ideas to everyday situations I meet at home, school, or shopping.</p>
+                <p><strong>Approach:</strong> Show a complete worked example, then give me a similar problem to try. Check my attempt and explain mistakes.</p>
+                <p><strong>Motivation/Interest:</strong> When helpful, use gaming themes like levels, strategy, and trade-offs to keep me engaged.</p>
+                <p><strong>Pacing:</strong> Start easy and increase difficulty gradually once I succeed with each step.</p>
+              </div>
+            </div>
+
+            <div id="tab-ex2" class="tab-panel rounded-lg border border-slate-200 bg-white shadow-sm" role="tabpanel" aria-labelledby="tab-btn-ex2" hidden>
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Example 2 — Storyteller · Hobbies + Careers · Creative Task · Music + Cooking + Future Skills · Quick Wins</h3>
+              </div>
+              <div class="space-y-3 px-6 py-4 text-sm text-slate-800">
+                <p><strong>When guiding me in study mode, please follow these preferences.</strong></p>
+                <p><strong>Tone:</strong> Tell short, clear stories to explain ideas, keeping it imaginative but informative.</p>
+                <p><strong>Knowledge Connection:</strong> Link concepts to my hobbies and show how they could appear in real jobs.</p>
+                <p><strong>Approach:</strong> Use small creative tasks to let me build or design something that applies the concept.</p>
+                <p><strong>Motivation/Interest:</strong> Draw from music, cooking, and preparing future skills whenever it fits naturally.</p>
+                <p><strong>Pacing:</strong> Provide frequent small wins so I feel steady progress.</p>
+              </div>
+            </div>
+
+            <div id="tab-ex3" class="tab-panel rounded-lg border border-slate-200 bg-white shadow-sm" role="tabpanel" aria-labelledby="tab-btn-ex3" hidden>
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Example 3 — Expert · Careers + Values · Big Picture First · Education + Technology + Law/Policy · Deep Dives</h3>
+              </div>
+              <div class="space-y-3 px-6 py-4 text-sm text-slate-800">
+                <p><strong>While supporting me in learning mode, please follow these guidelines.</strong></p>
+                <p><strong>Tone:</strong> Professional and precise with well-organized structure.</p>
+                <p><strong>Knowledge Connection:</strong> Show how the topic connects to career paths and the values I care about, like fairness and responsibility.</p>
+                <p><strong>Approach:</strong> Start with the overall framework, then move into components.</p>
+                <p><strong>Motivation/Interest:</strong> Use examples from education, technology, and policy to make the learning feel impactful.</p>
+                <p><strong>Pacing:</strong> Go deep rather than fast; provide context and implications before advancing.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="guiding" class="scroll-mt-24">
+          <h2 class="text-2xl font-bold md:text-3xl">Guiding Questions</h2>
+          <div class="mt-4 rounded-lg border border-slate-200 bg-white shadow-sm">
+            <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
+              <p>Use these prompts to help students reflect on their preferences:</p>
+              <ul class="ml-5 list-disc space-y-1">
+                <li>What tone helps you stay focused and motivated?</li>
+                <li>Which real-life connections make new ideas feel more memorable?</li>
+                <li>Do you learn best from step-by-step examples, creative projects, or big-picture explanations?</li>
+                <li>What topics or themes keep you curious during a lesson?</li>
+                <li>How fast should the learning pace feel so you are challenged but not overwhelmed?</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="vocab" class="scroll-mt-24">
+          <h2 class="text-2xl font-bold md:text-3xl">Vocabulary List</h2>
+          <p class="mt-3 text-sm text-slate-700">Mix and match these descriptors to create a custom Build-a-Bot prompt.</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Tone &amp; Personality</h3>
+              </div>
+              <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
+                <p><strong>Knowledgeable Guide</strong> — Calm, supportive, and always ready to explain the why.</p>
+                <p><strong>Cheerful Coach</strong> — Upbeat encouragement with pep talks and fun energy.</p>
+                <p><strong>Storyteller</strong> — Paints pictures with words, uses analogies and narratives.</p>
+                <p><strong>Lab Partner</strong> — Curious, collaborative, solves problems alongside you.</p>
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Knowledge Connections</h3>
+              </div>
+              <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
+                <p><strong>Daily Life</strong> — Relate lessons to home, school, or community moments.</p>
+                <p><strong>Hobbies</strong> — Tie concepts to music, sports, gaming, art, and personal interests.</p>
+                <p><strong>Career Spotlight</strong> — Show pathways to future jobs and real-world impact.</p>
+                <p><strong>Global Lens</strong> — Compare perspectives from different cultures and regions.</p>
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Teaching Approach</h3>
+              </div>
+              <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
+                <p><strong>Step-by-Step</strong> — Break tasks into clear, numbered directions.</p>
+                <p><strong>Project Builder</strong> — Guide hands-on creations with checkpoints.</p>
+                <p><strong>Socratic</strong> — Ask questions that spark critical thinking and reflection.</p>
+                <p><strong>Challenge Ladder</strong> — Increase complexity gradually as confidence grows.</p>
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Motivation &amp; Interests</h3>
+              </div>
+              <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
+                <p><strong>Achievement Badges</strong> — Celebrate progress with small wins.</p>
+                <p><strong>Real-World Problem Solver</strong> — Focus on meaningful community or global issues.</p>
+                <p><strong>Creative Remix</strong> — Incorporate art, design, or storytelling challenges.</p>
+                <p><strong>Future Ready</strong> — Highlight how skills connect to long-term goals.</p>
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-slate-200 bg-white shadow-sm md:col-span-2 lg:col-span-1">
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Pacing &amp; Challenge</h3>
+              </div>
+              <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
+                <p><strong>Quick Wins</strong> — Short bursts of success before building complexity.</p>
+                <p><strong>Steady Growth</strong> — Moderate pace with time to practice.</p>
+                <p><strong>Stretch Goals</strong> — Push into advanced topics when ready.</p>
+                <p><strong>Deep Dive</strong> — Slow down to explore why and how in detail.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
-  );
-}
+
+    <script>
+      const tabs = document.querySelectorAll(".tab-trigger");
+      const panels = document.querySelectorAll(".tab-panel");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((btn) => {
+            const isSelected = btn === tab;
+            btn.setAttribute("aria-selected", String(isSelected));
+            if (isSelected) {
+              btn.classList.add("bg-slate-900", "text-white");
+              btn.classList.remove("text-slate-700");
+            } else {
+              btn.classList.remove("bg-slate-900", "text-white");
+              btn.classList.add("text-slate-700");
+            }
+          });
+
+          panels.forEach((panel) => {
+            if (panel.id === tab.getAttribute("aria-controls")) {
+              panel.removeAttribute("hidden");
+            } else {
+              panel.setAttribute("hidden", "");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

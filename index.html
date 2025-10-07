@@ -91,28 +91,29 @@
       </section>
 
       <section id="examples" class="scroll-mt-24">
-        <h2 class="text-2xl font-bold md:text-3xl">Example Prompts</h2>
-        <div class="mt-5 flex flex-wrap gap-2" role="tablist" aria-label="Example prompts">
-          <button
-            class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
-            role="tab" aria-selected="true" aria-controls="tab-ex1" id="tab-btn-ex1">
-            Example 1
-          </button>
-          <button
-            class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
-            role="tab" aria-selected="false" aria-controls="tab-ex2" id="tab-btn-ex2">
-            Example 2
-          </button>
-          <button
-            class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
-            role="tab" aria-selected="false" aria-controls="tab-ex3" id="tab-btn-ex3">
-            Example 3
-          </button>
-        </div>
+        <h2 class="text-2xl font-bold md:text-3xl">Example Prompts (Tabbed)</h2>
+        <div data-tabs-root="examples" class="mt-5">
+          <div class="flex flex-wrap gap-2" role="tablist" aria-label="Example prompts">
+            <button
+              class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              role="tab" aria-selected="true" data-tab-target="ex1" id="tab-btn-ex1">
+              Example 1
+            </button>
+            <button
+              class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              role="tab" aria-selected="false" data-tab-target="ex2" id="tab-btn-ex2">
+              Example 2
+            </button>
+            <button
+              class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              role="tab" aria-selected="false" data-tab-target="ex3" id="tab-btn-ex3">
+              Example 3
+            </button>
+          </div>
 
-        <div class="mt-4 space-y-4">
-          <div id="tab-ex1" class="tab-panel rounded-lg border border-slate-200 bg-white shadow-sm" role="tabpanel"
-            aria-labelledby="tab-btn-ex1">
+          <div class="mt-4 space-y-4">
+            <div data-tab-panel="ex1" class="tab-panel rounded-lg border border-slate-200 bg-white shadow-sm" role="tabpanel"
+              aria-labelledby="tab-btn-ex1">
             <div class="border-b border-slate-200 px-6 py-4">
               <h3 class="text-lg font-semibold">Example 1 — Expert · Daily Life · Worked Example → Try It · Gaming ·
                 Easy → Hard</h3>
@@ -130,10 +131,10 @@
               <p><strong>Pacing:</strong> Start easy and increase difficulty gradually once I succeed with each step.
               </p>
             </div>
-          </div>
+            </div>
 
-          <div id="tab-ex2" class="tab-panel rounded-lg border border-slate-200 bg-white shadow-sm" role="tabpanel"
-            aria-labelledby="tab-btn-ex2" hidden>
+            <div data-tab-panel="ex2" class="tab-panel rounded-lg border border-slate-200 bg-white shadow-sm" role="tabpanel"
+              aria-labelledby="tab-btn-ex2" hidden>
             <div class="border-b border-slate-200 px-6 py-4">
               <h3 class="text-lg font-semibold">Example 2 — Storyteller · Hobbies + Careers · Creative Task · Music +
                 Cooking + Future Skills · Quick Wins</h3>
@@ -150,10 +151,10 @@
                 fits naturally.</p>
               <p><strong>Pacing:</strong> Provide frequent small wins so I feel steady progress.</p>
             </div>
-          </div>
+            </div>
 
-          <div id="tab-ex3" class="tab-panel rounded-lg border border-slate-200 bg-white shadow-sm" role="tabpanel"
-            aria-labelledby="tab-btn-ex3" hidden>
+            <div data-tab-panel="ex3" class="tab-panel rounded-lg border border-slate-200 bg-white shadow-sm" role="tabpanel"
+              aria-labelledby="tab-btn-ex3" hidden>
             <div class="border-b border-slate-200 px-6 py-4">
               <h3 class="text-lg font-semibold">Example 3 — Expert · Careers + Values · Big Picture First · Education +
                 Technology + Law/Policy · Deep Dives</h3>
@@ -168,6 +169,7 @@
                 learning feel impactful.</p>
               <p><strong>Pacing:</strong> Go deep rather than fast; provide context and implications before advancing.
               </p>
+            </div>
             </div>
           </div>
         </div>
@@ -193,64 +195,69 @@
         <h2 class="text-2xl font-bold md:text-3xl">Vocabulary List</h2>
         <p class="mt-3 text-sm text-slate-700">Mix and match these descriptors to create a custom Build-a-Bot prompt.
         </p>
-        <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
-            <div class="border-b border-slate-200 px-6 py-4">
-              <h3 class="text-lg font-semibold">Tone &amp; Personality</h3>
-            </div>
-            <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
-              <p><strong>Knowledgeable Guide</strong> — Calm, supportive, and always ready to explain the why.</p>
-              <p><strong>Cheerful Coach</strong> — Upbeat encouragement with pep talks and fun energy.</p>
-              <p><strong>Storyteller</strong> — Paints pictures with words, uses analogies and narratives.</p>
-              <p><strong>Lab Partner</strong> — Curious, collaborative, solves problems alongside you.</p>
-            </div>
-          </div>
-
-          <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
-            <div class="border-b border-slate-200 px-6 py-4">
-              <h3 class="text-lg font-semibold">Knowledge Connections</h3>
-            </div>
-            <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
-              <p><strong>Daily Life</strong> — Relate lessons to home, school, or community moments.</p>
-              <p><strong>Hobbies</strong> — Tie concepts to music, sports, gaming, art, and personal interests.</p>
-              <p><strong>Career Spotlight</strong> — Show pathways to future jobs and real-world impact.</p>
-              <p><strong>Global Lens</strong> — Compare perspectives from different cultures and regions.</p>
-            </div>
-          </div>
-
-          <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
-            <div class="border-b border-slate-200 px-6 py-4">
-              <h3 class="text-lg font-semibold">Teaching Approach</h3>
-            </div>
-            <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
-              <p><strong>Step-by-Step</strong> — Break tasks into clear, numbered directions.</p>
-              <p><strong>Project Builder</strong> — Guide hands-on creations with checkpoints.</p>
-              <p><strong>Socratic</strong> — Ask questions that spark critical thinking and reflection.</p>
-              <p><strong>Challenge Ladder</strong> — Increase complexity gradually as confidence grows.</p>
+        <div class="mt-6 space-y-6" id="vocab-tabs">
+          <div>
+            <h3 class="text-base font-semibold text-slate-800">1. Choose a Module</h3>
+            <div class="mt-3 flex flex-wrap gap-2" role="tablist" aria-label="Vocabulary modules">
+              <button type="button"
+                class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                role="tab" aria-selected="true" data-module-tab="tones">
+                Tones
+              </button>
+              <button type="button"
+                class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                role="tab" aria-selected="false" data-module-tab="connections">
+                Knowledge Connections
+              </button>
+              <button type="button"
+                class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                role="tab" aria-selected="false" data-module-tab="tools">
+                Tool Packs
+              </button>
+              <button type="button"
+                class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                role="tab" aria-selected="false" data-module-tab="energy">
+                Energy Source
+              </button>
+              <button type="button"
+                class="tab-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                role="tab" aria-selected="false" data-module-tab="gear">
+                Gear Settings
+              </button>
             </div>
           </div>
 
-          <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
-            <div class="border-b border-slate-200 px-6 py-4">
-              <h3 class="text-lg font-semibold">Motivation &amp; Interests</h3>
-            </div>
-            <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
-              <p><strong>Achievement Badges</strong> — Celebrate progress with small wins.</p>
-              <p><strong>Real-World Problem Solver</strong> — Focus on meaningful community or global issues.</p>
-              <p><strong>Creative Remix</strong> — Incorporate art, design, or storytelling challenges.</p>
-              <p><strong>Future Ready</strong> — Highlight how skills connect to long-term goals.</p>
+          <div>
+            <h3 class="text-base font-semibold text-slate-800">2. Pick an Option</h3>
+            <div id="module-options" class="mt-3 flex flex-wrap gap-2" role="tablist" aria-label="Module options">
+              <button type="button"
+                class="option-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                role="tab" aria-selected="true" data-option-tab="expert">
+                Expert
+              </button>
+              <button type="button"
+                class="option-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                role="tab" aria-selected="false" data-option-tab="coach">
+                Coach
+              </button>
+              <button type="button"
+                class="option-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                role="tab" aria-selected="false" data-option-tab="study-buddy">
+                Study Buddy
+              </button>
+              <button type="button"
+                class="option-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                role="tab" aria-selected="false" data-option-tab="storyteller">
+                Storyteller
+              </button>
             </div>
           </div>
 
-          <div class="rounded-lg border border-slate-200 bg-white shadow-sm md:col-span-2 lg:col-span-1">
-            <div class="border-b border-slate-200 px-6 py-4">
-              <h3 class="text-lg font-semibold">Pacing &amp; Challenge</h3>
-            </div>
-            <div class="space-y-2 px-6 py-4 text-sm text-slate-700">
-              <p><strong>Quick Wins</strong> — Short bursts of success before building complexity.</p>
-              <p><strong>Steady Growth</strong> — Moderate pace with time to practice.</p>
-              <p><strong>Stretch Goals</strong> — Push into advanced topics when ready.</p>
-              <p><strong>Deep Dive</strong> — Slow down to explore why and how in detail.</p>
+          <div>
+            <h3 class="text-base font-semibold text-slate-800">3. Useful Vocabulary</h3>
+            <div id="vocab-panel" class="mt-3 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+              <p class="text-sm text-slate-700">Vocabulary placeholder for <span class="font-semibold" data-active-module-label>tones</span>
+                → <span class="font-semibold" data-active-option-label>expert</span>. We'll populate this list next.</p>
             </div>
           </div>
         </div>
@@ -259,32 +266,168 @@
   </div>
 
   <script>
-    const tabs = document.querySelectorAll(".tab-trigger");
-    const panels = document.querySelectorAll(".tab-panel");
+    // Example prompt tabs
+    document.querySelectorAll('[data-tabs-root]').forEach((root) => {
+      const tabButtons = root.querySelectorAll('[data-tab-target]');
+      const panels = root.querySelectorAll('[data-tab-panel]');
 
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        tabs.forEach((btn) => {
-          const isSelected = btn === tab;
-          btn.setAttribute("aria-selected", String(isSelected));
-          if (isSelected) {
-            btn.classList.add("bg-slate-900", "text-white");
-            btn.classList.remove("text-slate-700");
+      const activateTab = (targetId) => {
+        tabButtons.forEach((btn) => {
+          const isActive = btn.dataset.tabTarget === targetId;
+          btn.setAttribute('aria-selected', String(isActive));
+          if (isActive) {
+            btn.classList.add('bg-slate-900', 'text-white');
+            btn.classList.remove('text-slate-700');
           } else {
-            btn.classList.remove("bg-slate-900", "text-white");
-            btn.classList.add("text-slate-700");
+            btn.classList.remove('bg-slate-900', 'text-white');
+            btn.classList.add('text-slate-700');
           }
         });
 
         panels.forEach((panel) => {
-          if (panel.id === tab.getAttribute("aria-controls")) {
-            panel.removeAttribute("hidden");
+          const isActive = panel.dataset.tabPanel === targetId;
+          if (isActive) {
+            panel.removeAttribute('hidden');
           } else {
-            panel.setAttribute("hidden", "");
+            panel.setAttribute('hidden', '');
           }
         });
+      };
+
+      tabButtons.forEach((button) => {
+        button.addEventListener('click', () => activateTab(button.dataset.tabTarget));
+      });
+
+      const defaultTarget = tabButtons[0]?.dataset.tabTarget;
+      if (defaultTarget) {
+        activateTab(defaultTarget);
+      }
+    });
+
+    // Vocabulary module + option tabs
+    const modules = {
+      tones: {
+        label: 'Tones',
+        options: [
+          { key: 'expert', label: 'Expert' },
+          { key: 'coach', label: 'Coach' },
+          { key: 'study-buddy', label: 'Study Buddy' },
+          { key: 'storyteller', label: 'Storyteller' },
+        ],
+      },
+      connections: {
+        label: 'Knowledge Connections',
+        options: [
+          { key: 'hobbies', label: 'Hobbies' },
+          { key: 'daily-life', label: 'Daily Life' },
+          { key: 'jobs-careers', label: 'Jobs/Careers' },
+          { key: 'values', label: 'Values' },
+        ],
+      },
+      tools: {
+        label: 'Tool Packs',
+        options: [
+          { key: 'step-by-step', label: 'Step-by-Step' },
+          { key: 'big-picture-first', label: 'Big Picture First' },
+          { key: 'worked-example-try-it', label: 'Worked Example → Try It' },
+          { key: 'practice-quiz', label: 'Practice Quiz' },
+          { key: 'creative-task', label: 'Creative Task' },
+        ],
+      },
+      energy: {
+        label: 'Energy Source',
+        options: [
+          { key: 'sports', label: 'Sports' },
+          { key: 'music', label: 'Music' },
+          { key: 'gaming', label: 'Gaming' },
+          { key: 'cooking', label: 'Cooking' },
+          { key: 'future-skills', label: 'Future Skills' },
+        ],
+      },
+      gear: {
+        label: 'Gear Settings',
+        options: [
+          { key: 'easy-to-hard', label: 'Easy → Hard' },
+          { key: 'hard-to-easy', label: 'Hard → Easy' },
+          { key: 'quick-wins', label: 'Quick Wins' },
+          { key: 'deep-dives', label: 'Deep Dives' },
+        ],
+      },
+    };
+
+    const moduleButtons = document.querySelectorAll('[data-module-tab]');
+    const optionsContainer = document.getElementById('module-options');
+    const moduleLabel = document.querySelector('[data-active-module-label]');
+    const optionLabel = document.querySelector('[data-active-option-label]');
+
+    let activeModule = 'tones';
+    let activeOption = 'expert';
+
+    const styleButtons = (buttons, activeKey, getKey) => {
+      buttons.forEach((btn) => {
+        const isActive = getKey(btn) === activeKey;
+        btn.setAttribute('aria-selected', String(isActive));
+        if (isActive) {
+          btn.classList.add('bg-slate-900', 'text-white');
+          btn.classList.remove('text-slate-700');
+        } else {
+          btn.classList.remove('bg-slate-900', 'text-white');
+          btn.classList.add('text-slate-700');
+        }
+      });
+    };
+
+    const updateVocabularyPlaceholder = () => {
+      moduleLabel.textContent = modules[activeModule].label;
+      const currentOption = modules[activeModule].options.find((opt) => opt.key === activeOption);
+      optionLabel.textContent = currentOption ? currentOption.label : '';
+    };
+
+    const renderOptions = () => {
+      optionsContainer.innerHTML = '';
+      const availableOptions = modules[activeModule].options;
+      const hasValidActiveOption = availableOptions.some((opt) => opt.key === activeOption);
+
+      if (!hasValidActiveOption && availableOptions[0]) {
+        activeOption = availableOptions[0].key;
+      }
+
+      availableOptions.forEach((option) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.optionTab = option.key;
+        button.className = 'option-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100';
+        button.textContent = option.label;
+        button.setAttribute('role', 'tab');
+        const isActive = option.key === activeOption;
+        button.setAttribute('aria-selected', String(isActive));
+
+        button.addEventListener('click', () => {
+          activeOption = option.key;
+          styleButtons(optionsContainer.querySelectorAll('[data-option-tab]'), activeOption, (btn) => btn.dataset.optionTab);
+          updateVocabularyPlaceholder();
+        });
+
+        optionsContainer.appendChild(button);
+      });
+
+      styleButtons(optionsContainer.querySelectorAll('[data-option-tab]'), activeOption, (btn) => btn.dataset.optionTab);
+      updateVocabularyPlaceholder();
+    };
+
+    moduleButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selectedModule = button.dataset.moduleTab;
+        if (selectedModule === activeModule) return;
+        activeModule = selectedModule;
+        activeOption = modules[activeModule].options[0]?.key ?? '';
+        styleButtons(moduleButtons, activeModule, (btn) => btn.dataset.moduleTab);
+        renderOptions();
       });
     });
+
+    styleButtons(moduleButtons, activeModule, (btn) => btn.dataset.moduleTab);
+    renderOptions();
   </script>
 </body>
 

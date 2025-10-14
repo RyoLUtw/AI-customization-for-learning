@@ -67,25 +67,125 @@
         <div class="mt-4 grid gap-4 md:grid-cols-2">
           <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
             <div class="border-b border-slate-200 px-6 py-4">
-              <h3 class="text-lg font-semibold">Concept Overview</h3>
+              <h3 class="text-lg font-semibold">Design Module Explorer</h3>
             </div>
-            <div class="space-y-3 px-6 py-4 text-sm text-slate-700">
-              <p>
-                The blueprint of the robot represent customizable learning preferences. Each module maps to a teaching setting:
-              </p>
-              <ul class="ml-5 list-disc space-y-1">
-                <li><span class="font-semibold">Brain Chip</span> → Tone/Personality</li>
-                <li><span class="font-semibold">Vision Sensor</span> → Knowledge Connections to real life</li>
-                <li><span class="font-semibold">Tools Pack</span> → Teaching Approach</li>
-                <li><span class="font-semibold">Energy Source</span> → Motivation &amp; Interests</li>
-                <li><span class="font-semibold">Gear Settings</span> → Pacing &amp; Challenge</li>
-              </ul>
+            <div class="space-y-6 px-6 py-5 text-sm text-slate-700">
+              <div>
+                <h4 class="text-base font-semibold text-slate-800">Module Selection</h4>
+                <br />
+                <div class="flex flex-wrap gap-2" role="tablist" aria-label="Design modules">
+                  <button type="button"
+                    class="design-module-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    role="tab" aria-selected="true" data-design-module="brain-chip">
+                    Brain Chip
+                  </button>
+                  <button type="button"
+                    class="design-module-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    role="tab" aria-selected="false" data-design-module="vision-sensor">
+                    Vision Sensor
+                  </button>
+                  <button type="button"
+                    class="design-module-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    role="tab" aria-selected="false" data-design-module="tools-pack">
+                    Tools Pack
+                  </button>
+                  <button type="button"
+                    class="design-module-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    role="tab" aria-selected="false" data-design-module="energy-source">
+                    Energy Source
+                  </button>
+                  <button type="button"
+                    class="design-module-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    role="tab" aria-selected="false" data-design-module="gear-settings">
+                    Gear Settings
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="text-base font-semibold text-slate-800">Module Description</h4>
+                <br />
+                <p class="text-sm text-slate-700" data-module-description>
+                  What this module controls: The Brain Chip decides the AI’s voice—how it talks, explains, and guides you
+                  (formality, vibe, and phrasing).
+                </p>
+              </div>
+
+              <div>
+                <h4 class="text-base font-semibold text-slate-800">Option Explorer</h4>
+                <br />
+                <div class="space-y-4">
+                  <div id="design-options" class="flex flex-wrap gap-2" role="tablist"
+                    aria-label="Module options">
+                  </div>
+                  <div class="rounded-lg border border-slate-200 bg-slate-50 p-5 text-sm text-slate-700">
+                    <h4 class="text-base font-semibold text-slate-800" data-design-option-heading>Expert</h4>
+                    <br />
+                    <div class="space-y-5">
+                      <div>
+                        <p class="text-sm font-semibold text-slate-800">Description</p>
+                        <br />
+                        <p data-design-description>
+                          Clear, precise, and professional. Prioritizes accuracy, definitions, and structure with minimal small
+                          talk. Explains mechanisms and uses correct terminology.
+                        </p>
+                      </div>
+                      <div>
+                        <p class="text-sm font-semibold text-slate-800">Example Response</p>
+                        <br />
+                        <p data-design-example>
+                          Water is H₂O—two hydrogen atoms bonded to one oxygen. It’s a polar molecule, an excellent solvent, and
+                          exists as solid, liquid, and gas.
+                        </p>
+                        <br />
+                        <button type="button"
+                          class="design-select-button rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                          data-design-select>
+                          Select
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div
-            class="flex items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
-            <img src="robot.png" alt="Blueprint Build-a-Bot concept illustration"
-              class="h-full w-full object-contain p-6" />
+          <div class="space-y-4">
+            <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
+              <div class="border-b border-slate-200 px-6 py-4">
+                <h3 class="text-lg font-semibold">Current Build Overview</h3>
+              </div>
+              <div class="space-y-3 px-6 py-4 text-sm text-slate-700">
+                <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Selected Options</p>
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="font-medium text-slate-800">Brain Chip</span>
+                    <span data-overview-item="brain-chip">-</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="font-medium text-slate-800">Vision Sensor</span>
+                    <span data-overview-item="vision-sensor">-</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="font-medium text-slate-800">Tools Pack</span>
+                    <span data-overview-item="tools-pack">-</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="font-medium text-slate-800">Energy Source</span>
+                    <span data-overview-item="energy-source">-</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="font-medium text-slate-800">Gear Settings</span>
+                    <span data-overview-item="gear-settings">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+              <img src="robot.png" alt="Blueprint Build-a-Bot concept illustration"
+                class="h-full w-full object-contain p-6" data-module-image />
+            </div>
           </div>
         </div>
       </section>
@@ -266,6 +366,14 @@
   </div>
 
   <script>
+    // Module illustration placeholders (update paths as needed)
+    const BRAIN_CHIP_IMAGE = 'path/to/brain-chip.png';
+    const VISION_SENSOR_IMAGE = 'path/to/vision-sensor.png';
+    const TOOLS_PACK_IMAGE = 'path/to/tools-pack.png';
+    const ENERGY_SOURCE_IMAGE = 'path/to/energy-source.png';
+    const GEAR_SETTINGS_IMAGE = 'path/to/gear-settings.png';
+    const DEFAULT_MODULE_IMAGE = 'robot.png';
+
     // Example prompt tabs
     document.querySelectorAll('[data-tabs-root]').forEach((root) => {
       const tabButtons = root.querySelectorAll('[data-tab-target]');
@@ -303,6 +411,410 @@
         activateTab(defaultTarget);
       }
     });
+
+    // Shared helper for styling pill buttons
+    const styleButtons = (buttons, activeKey, getKey) => {
+      buttons.forEach((btn) => {
+        const isActive = getKey(btn) === activeKey;
+        btn.setAttribute('aria-selected', String(isActive));
+        if (isActive) {
+          btn.classList.add('bg-slate-900', 'text-white');
+          btn.classList.remove('text-slate-700');
+        } else {
+          btn.classList.remove('bg-slate-900', 'text-white');
+          btn.classList.add('text-slate-700');
+        }
+      });
+    };
+
+    // Design concept explorer
+    const designModules = {
+      'brain-chip': {
+        label: 'Brain Chip (Tone / Personality)',
+        description:
+          'What this module controls: The Brain Chip decides the AI’s voice—how it talks, explains, and guides you (formality, vibe, and phrasing).',
+        options: [
+          {
+            key: 'expert',
+            label: 'Expert',
+            description:
+              'Clear, precise, and professional. Prioritizes accuracy, definitions, and structure with minimal small talk. Explains mechanisms and uses correct terminology.',
+            example:
+              'Water is H₂O—two hydrogen atoms bonded to one oxygen. It’s a polar molecule, an excellent solvent, and exists as solid, liquid, and gas.',
+          },
+          {
+            key: 'coach',
+            label: 'Coach',
+            description:
+              'Supportive, focused on progress. Encourages effort, sets goals, and gives direct, actionable steps with quick feedback to build confidence.',
+            example:
+              'Think of water as H₂O fuel for life. Goal: name its states and role as a solvent. Ready? Solid, liquid, gas—nailed it!',
+          },
+          {
+            key: 'study-buddy',
+            label: 'Study Buddy',
+            description:
+              'Friendly and casual. Uses simple words, everyday examples, and short steps. Feels like learning with a helpful classmate.',
+            example:
+              'Water’s just H₂O—the drink in your bottle, rain from clouds, and steam from noodles. Same stuff, different forms: ice, liquid, vapor.',
+          },
+          {
+            key: 'storyteller',
+            label: 'Storyteller',
+            description:
+              'Imaginative and vivid. Uses mini-stories or metaphors to make abstract ideas memorable without losing accuracy.',
+            example:
+              'Picture tiny H₂O characters holding hands—one oxygen, two hydrogens. They travel: freeze into ice castles, flow as rivers, and rise as misty clouds.',
+          },
+        ],
+      },
+      'vision-sensor': {
+        label: 'Vision Sensor (Knowledge Connections)',
+        description:
+          'What this module controls: The Vision Sensor decides how the AI links knowledge to the real world — whether through hobbies, daily experiences, career relevance, or personal values.',
+        options: [
+          {
+            key: 'hobbies',
+            label: 'Hobbies',
+            description:
+              'Uses your favorite activities to explain ideas so learning feels more fun, natural, and connected to your free time.',
+            example:
+              'Water is like the paint thinner for your creativity — mixing, blending, and changing textures just like it does in nature.',
+          },
+          {
+            key: 'daily-life',
+            label: 'Daily Life',
+            description:
+              'Relates lessons to everyday routines like shopping, eating, or cleaning, showing how knowledge helps in practical life decisions.',
+            example:
+              'Water is what keeps your body hydrated, your clothes clean, and your food cooking — science behind daily survival.',
+          },
+          {
+            key: 'jobs-careers',
+            label: 'Jobs / Careers',
+            description:
+              'Connects learning to professional skills and workplaces, helping you see how topics apply to real-world jobs.',
+            example:
+              'For a chemist, water isn’t just liquid — it’s a universal solvent, critical for experiments, cleaning tools, and safe reactions.',
+          },
+          {
+            key: 'values',
+            label: 'Values',
+            description:
+              'Links knowledge to ethics, sustainability, and social good, showing why learning matters for people and the planet.',
+            example:
+              'Water isn’t endless — conserving it is part of being a responsible global citizen, ensuring fair access for all communities.',
+          },
+        ],
+      },
+      'tools-pack': {
+        label: 'Tools Pack (Approach / Teaching Style)',
+        description:
+          'What this module controls: The Tools Pack determines how the AI teaches—its method of explanation, structure, and learning path. It shapes how information is presented and practiced.',
+        options: [
+          {
+            key: 'step-by-step',
+            label: 'Step-by-Step',
+            description:
+              'Breaks learning into small, clear steps with guidance after each stage. Focuses on steady progress through structured explanation.',
+            example:
+              'Let’s start small: first, water’s formula is H₂O. Next, we’ll see what that means — two hydrogens, one oxygen. Simple chemistry!',
+          },
+          {
+            key: 'big-picture-first',
+            label: 'Big Picture First',
+            description:
+              'Begins with the main idea and purpose before diving into details. Helps learners understand the “why” behind concepts.',
+            example:
+              'Before details — water is the key ingredient of life. It connects everything: plants, animals, humans. Now let’s see how it does that.',
+          },
+          {
+            key: 'worked-example-try-it',
+            label: 'Worked Example → Try It',
+            description:
+              'Shows a full example first, then lets you practice a similar one with quick feedback and correction.',
+            example:
+              'Here’s how to describe water: “Water is H₂O, a liquid essential for life.” Now your turn — can you define ice in one line?',
+          },
+          {
+            key: 'practice-quiz',
+            label: 'Practice Quiz',
+            description:
+              'Uses short, active questions to test understanding and memory. Gives feedback right away for faster learning.',
+            example:
+              'Quick check: What’s water made of? (Hint: two of one element, one of another.) That’s right — hydrogen and oxygen!',
+          },
+          {
+            key: 'creative-task',
+            label: 'Creative Task',
+            description:
+              'Encourages learners to create something new using what they learned—stories, visuals, analogies, or real-world applications.',
+            example:
+              'Imagine water as a superhero. What powers would it have? Maybe shape-shifting—ice, liquid, vapor! Great way to remember states of matter.',
+          },
+        ],
+      },
+      'energy-source': {
+        label: 'Energy Source (Motivation & Interests)',
+        description:
+          'What this module controls: The Energy Source decides what themes or inspirations keep your AI’s teaching lively and engaging. It influences what examples or topics energize learning.',
+        options: [
+          {
+            key: 'sports',
+            label: 'Sports',
+            description:
+              'Explains with teamwork, training, or competition themes — focusing on effort, progress, and goal-oriented improvement.',
+            example:
+              'Learning about water? Think of it as your body’s hydration coach, helping every cell stay active like a team working together.',
+          },
+          {
+            key: 'music',
+            label: 'Music',
+            description:
+              'Uses rhythm, melody, and harmony as analogies for balance, repetition, and flow in learning.',
+            example:
+              'Water flows like a perfect rhythm, repeating patterns in rivers and rain — nature’s music keeping life in tune.',
+          },
+          {
+            key: 'gaming',
+            label: 'Gaming',
+            description:
+              'Turns learning into a game with levels, strategy, and rewards, making progress feel like achievement.',
+            example:
+              'Imagine unlocking a new water level — first learn H₂O, then earn bonus XP by naming its three states!',
+          },
+          {
+            key: 'cooking',
+            label: 'Cooking',
+            description:
+              'Compares learning to recipes — mixing ingredients, following steps, and adjusting for the best result.',
+            example:
+              'Water’s like the base ingredient — it blends flavors, boils pasta, and steams veggies. No recipe works without it!',
+          },
+          {
+            key: 'future-skills',
+            label: 'Future Skills',
+            description:
+              'Relates learning to skills for future careers and problem-solving — useful, adaptable, and goal-focused.',
+            example:
+              'Knowing water’s properties helps future engineers and designers solve real-world challenges like clean energy or climate systems.',
+          },
+        ],
+      },
+      'gear-settings': {
+        label: 'Gear Settings (Pacing / Challenge Level)',
+        description:
+          'This module determines how the AI paces its explanations and adjusts the level of challenge during interaction. It affects whether learning feels gradual, demanding, fast-moving, or in-depth — shaping how the AI scaffolds understanding and feedback.',
+        options: [
+          {
+            key: 'easy-hard',
+            label: 'Easy → Hard — Gradual, Progressive, Tiered',
+            description:
+              'The AI starts simple and gradually increases difficulty, helping learners build confidence before facing complex ideas.',
+            example:
+              '“Water is a clear liquid that we drink every day. It covers most of Earth’s surface. Later, we’ll learn how it’s made of hydrogen and oxygen atoms joined together.”',
+          },
+          {
+            key: 'hard-easy',
+            label: 'Hard → Easy — Challenge-First, Simplified-on-Demand',
+            description:
+              'The AI begins with a demanding or abstract concept, then simplifies when needed to support comprehension.',
+            example:
+              '“Water is a molecular compound of H₂O. Each molecule has two hydrogen atoms bonded to one oxygen atom. Don’t worry—let’s break that down step by step.”',
+          },
+          {
+            key: 'quick-wins',
+            label: 'Quick Wins — Bite-Sized, Momentum-Building, Fast-Feedback',
+            description:
+              'The AI focuses on short, easily digestible explanations and rapid reinforcement to keep motivation high.',
+            example:
+              '“Water is what you drink! It keeps you alive, helps plants grow, and cools the Earth. See? Easy win!”',
+          },
+          {
+            key: 'deep-dives',
+            label: 'Deep Dives — Thorough, Nuanced, Exploratory',
+            description:
+              'The AI explores topics in depth, connecting scientific, environmental, and linguistic angles to develop comprehensive understanding.',
+            example:
+              '“Water, chemically known as H₂O, is a universal solvent essential for life. Its polarity allows it to dissolve many substances, regulating ecosystems and even shaping languages through metaphors like ‘flow’ and ‘clarity.’”',
+          },
+        ],
+      },
+    };
+
+    const designModuleButtons = document.querySelectorAll('[data-design-module]');
+    const designOptionsContainer = document.getElementById('design-options');
+    const designOptionHeading = document.querySelector('[data-design-option-heading]');
+    const designDescription = document.querySelector('[data-design-description]');
+    const designExample = document.querySelector('[data-design-example]');
+    const designSelectButton = document.querySelector('[data-design-select]');
+    const moduleDescriptionElement = document.querySelector('[data-module-description]');
+    const designModuleImageElement = document.querySelector('[data-module-image]');
+    const overviewItems = {};
+    document.querySelectorAll('[data-overview-item]').forEach((item) => {
+      overviewItems[item.dataset.overviewItem] = item;
+    });
+
+    const designModuleImageMap = {
+      'brain-chip': BRAIN_CHIP_IMAGE,
+      'vision-sensor': VISION_SENSOR_IMAGE,
+      'tools-pack': TOOLS_PACK_IMAGE,
+      'energy-source': ENERGY_SOURCE_IMAGE,
+      'gear-settings': GEAR_SETTINGS_IMAGE,
+    };
+
+    if (designModuleImageElement) {
+      designModuleImageElement.addEventListener('error', () => {
+        if (designModuleImageElement.dataset.fallbackApplied === 'true') return;
+        designModuleImageElement.dataset.fallbackApplied = 'true';
+        designModuleImageElement.src = DEFAULT_MODULE_IMAGE;
+      });
+    }
+
+    const STORAGE_KEY = 'design-module-selections';
+    const loadSelections = () => {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        return stored ? JSON.parse(stored) : {};
+      } catch (error) {
+        console.error('Unable to load saved selections', error);
+        return {};
+      }
+    };
+
+    const saveSelections = (selections) => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(selections));
+      } catch (error) {
+        console.error('Unable to save selections', error);
+      }
+    };
+
+    let savedSelections = loadSelections();
+
+    const firstDesignModuleKey = designModuleButtons[0]?.dataset.designModule ?? Object.keys(designModules)[0];
+    let activeDesignModule = firstDesignModuleKey;
+    let activeDesignOption = designModules[activeDesignModule]?.options[0]?.key ?? '';
+
+    const updateOverviewPanel = () => {
+      Object.entries(overviewItems).forEach(([moduleKey, element]) => {
+        const savedKey = savedSelections[moduleKey];
+        const optionLabel = designModules[moduleKey]?.options.find((opt) => opt.key === savedKey)?.label;
+        element.textContent = optionLabel ?? '-';
+      });
+    };
+
+    const initialSavedOption = savedSelections[activeDesignModule];
+    if (
+      initialSavedOption &&
+      designModules[activeDesignModule]?.options.some((opt) => opt.key === initialSavedOption)
+    ) {
+      activeDesignOption = initialSavedOption;
+    }
+
+    const updateDesignDetails = () => {
+      const moduleData = designModules[activeDesignModule];
+      const optionData = moduleData?.options.find((opt) => opt.key === activeDesignOption);
+
+      if (designOptionHeading) {
+        designOptionHeading.textContent = optionData?.label ?? '';
+      }
+      designDescription.textContent = optionData?.description ?? '';
+      designExample.textContent = optionData?.example ?? '';
+      if (moduleDescriptionElement) {
+        moduleDescriptionElement.textContent = moduleData?.description ?? '';
+      }
+      if (designModuleImageElement) {
+        designModuleImageElement.dataset.fallbackApplied = 'false';
+        const nextImage = designModuleImageMap[activeDesignModule] ?? DEFAULT_MODULE_IMAGE;
+        designModuleImageElement.src = nextImage || DEFAULT_MODULE_IMAGE;
+        const moduleLabel = moduleData?.label ?? 'Module illustration';
+        designModuleImageElement.alt = `${moduleLabel} illustration`;
+      }
+      if (designSelectButton) {
+        designSelectButton.textContent =
+          savedSelections[activeDesignModule] === activeDesignOption ? 'Selected' : 'Select';
+      }
+    };
+
+    const renderDesignOptions = () => {
+      designOptionsContainer.innerHTML = '';
+
+      const availableOptions = designModules[activeDesignModule]?.options ?? [];
+      const hasValidActiveOption = availableOptions.some((opt) => opt.key === activeDesignOption);
+
+      if (!hasValidActiveOption) {
+        activeDesignOption = availableOptions[0]?.key ?? '';
+      }
+
+      availableOptions.forEach((option) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.designOption = option.key;
+        button.className =
+          'rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100';
+        button.textContent = option.label;
+        button.setAttribute('role', 'tab');
+        const isActive = option.key === activeDesignOption;
+        button.setAttribute('aria-selected', String(isActive));
+
+        button.addEventListener('click', () => {
+          activeDesignOption = option.key;
+          styleButtons(
+            designOptionsContainer.querySelectorAll('[data-design-option]'),
+            activeDesignOption,
+            (btn) => btn.dataset.designOption
+          );
+          updateDesignDetails();
+        });
+
+        designOptionsContainer.appendChild(button);
+      });
+
+      styleButtons(
+        designOptionsContainer.querySelectorAll('[data-design-option]'),
+        activeDesignOption,
+        (btn) => btn.dataset.designOption
+      );
+      updateDesignDetails();
+    };
+
+    designModuleButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selectedModule = button.dataset.designModule;
+        if (selectedModule === activeDesignModule) return;
+
+        activeDesignModule = selectedModule;
+        const savedOption = savedSelections[activeDesignModule];
+        const hasSavedOption = designModules[activeDesignModule]?.options.some(
+          (opt) => opt.key === savedOption
+        );
+        activeDesignOption = hasSavedOption
+          ? savedOption
+          : designModules[activeDesignModule]?.options[0]?.key ?? '';
+
+        styleButtons(designModuleButtons, activeDesignModule, (btn) => btn.dataset.designModule);
+        renderDesignOptions();
+      });
+    });
+
+    styleButtons(designModuleButtons, activeDesignModule, (btn) => btn.dataset.designModule);
+    renderDesignOptions();
+
+    if (designSelectButton) {
+      designSelectButton.addEventListener('click', () => {
+        if (!activeDesignModule || !activeDesignOption) return;
+        savedSelections = {
+          ...savedSelections,
+          [activeDesignModule]: activeDesignOption,
+        };
+        saveSelections(savedSelections);
+        updateOverviewPanel();
+        updateDesignDetails();
+      });
+    }
+
+    updateOverviewPanel();
 
     // Vocabulary module + option tabs
     const modules = {
@@ -363,20 +875,6 @@
     let activeModule = 'tones';
     let activeOption = 'expert';
 
-    const styleButtons = (buttons, activeKey, getKey) => {
-      buttons.forEach((btn) => {
-        const isActive = getKey(btn) === activeKey;
-        btn.setAttribute('aria-selected', String(isActive));
-        if (isActive) {
-          btn.classList.add('bg-slate-900', 'text-white');
-          btn.classList.remove('text-slate-700');
-        } else {
-          btn.classList.remove('bg-slate-900', 'text-white');
-          btn.classList.add('text-slate-700');
-        }
-      });
-    };
-
     const updateVocabularyPlaceholder = () => {
       moduleLabel.textContent = modules[activeModule].label;
       const currentOption = modules[activeModule].options.find((opt) => opt.key === activeOption);
@@ -396,7 +894,8 @@
         const button = document.createElement('button');
         button.type = 'button';
         button.dataset.optionTab = option.key;
-        button.className = 'option-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100';
+        button.className =
+          'option-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100';
         button.textContent = option.label;
         button.setAttribute('role', 'tab');
         const isActive = option.key === activeOption;

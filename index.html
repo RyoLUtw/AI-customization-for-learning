@@ -52,7 +52,7 @@
         </div>
         <div class="px-6 py-4 text-sm text-slate-700">
           <nav class="flex flex-col gap-2">
-            <a href="#design" class="transition hover:text-slate-900 hover:underline">Design Concept</a>
+            <a href="#design" class="transition hover:text-slate-900 hover:underline">Module Customization</a>
             <a href="#examples" class="transition hover:text-slate-900 hover:underline">Example Prompts</a>
             <a href="#guiding" class="transition hover:text-slate-900 hover:underline">Guiding Questions</a>
             <a href="#vocab" class="transition hover:text-slate-900 hover:underline">Vocabulary List</a>
@@ -63,7 +63,7 @@
 
     <main class="space-y-16">
       <section id="design" class="scroll-mt-24">
-        <h2 class="text-2xl font-bold md:text-3xl">Design Concept (Blueprint Build-a-Bot)</h2>
+        <h2 class="text-2xl font-bold md:text-3xl">Module Customization</h2>
         <div class="mt-4 grid gap-4 md:grid-cols-2">
           <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
             <div class="border-b border-slate-200 px-6 py-4">
@@ -367,11 +367,11 @@
 
   <script>
     // Module illustration placeholders (update paths as needed)
-    const BRAIN_CHIP_IMAGE = 'path/to/brain-chip.png';
-    const VISION_SENSOR_IMAGE = 'path/to/vision-sensor.png';
-    const TOOLS_PACK_IMAGE = 'path/to/tools-pack.png';
-    const ENERGY_SOURCE_IMAGE = 'path/to/energy-source.png';
-    const GEAR_SETTINGS_IMAGE = 'path/to/gear-settings.png';
+    const BRAIN_CHIP_IMAGE = 'brain_chip.png';
+    const VISION_SENSOR_IMAGE = 'vision_sensor.png';
+    const TOOLS_PACK_IMAGE = 'tool_pack.png';
+    const ENERGY_SOURCE_IMAGE = 'energy_source.png';
+    const GEAR_SETTINGS_IMAGE = 'gear_setting.png';
     const DEFAULT_MODULE_IMAGE = 'robot.png';
 
     // Example prompt tabs
@@ -432,7 +432,7 @@
       'brain-chip': {
         label: 'Brain Chip (Tone / Personality)',
         description:
-          'What this module controls: The Brain Chip decides the AI’s voice—how it talks, explains, and guides you (formality, vibe, and phrasing).',
+          'The Brain Chip decides the AI’s voice—how it talks, explains, and guides you (formality, vibe, and phrasing).',
         options: [
           {
             key: 'expert',
@@ -471,7 +471,7 @@
       'vision-sensor': {
         label: 'Vision Sensor (Knowledge Connections)',
         description:
-          'What this module controls: The Vision Sensor decides how the AI links knowledge to the real world — whether through hobbies, daily experiences, career relevance, or personal values.',
+          'The Vision Sensor decides how the AI links knowledge to the real world — whether through hobbies, daily experiences, career relevance, or personal values.',
         options: [
           {
             key: 'hobbies',
@@ -510,7 +510,7 @@
       'tools-pack': {
         label: 'Tools Pack (Approach / Teaching Style)',
         description:
-          'What this module controls: The Tools Pack determines how the AI teaches—its method of explanation, structure, and learning path. It shapes how information is presented and practiced.',
+          'The Tools Pack determines how the AI teaches—its method of explanation, structure, and learning path. It shapes how information is presented and practiced.',
         options: [
           {
             key: 'step-by-step',
@@ -557,7 +557,7 @@
       'energy-source': {
         label: 'Energy Source (Motivation & Interests)',
         description:
-          'What this module controls: The Energy Source decides what themes or inspirations keep your AI’s teaching lively and engaging. It influences what examples or topics energize learning.',
+          'The Energy Source decides what themes or inspirations keep your AI’s teaching lively and engaging. It influences what examples or topics energize learning.',
         options: [
           {
             key: 'sports',
@@ -604,7 +604,7 @@
       'gear-settings': {
         label: 'Gear Settings (Pacing / Challenge Level)',
         description:
-          'This module determines how the AI paces its explanations and adjusts the level of challenge during interaction. It affects whether learning feels gradual, demanding, fast-moving, or in-depth — shaping how the AI scaffolds understanding and feedback.',
+          'Gear Settings determines how the AI paces its explanations and adjusts the level of challenge during interaction. It affects whether learning feels gradual, demanding, fast-moving, or in-depth — shaping how the AI scaffolds understanding and feedback.',
         options: [
           {
             key: 'easy-hard',

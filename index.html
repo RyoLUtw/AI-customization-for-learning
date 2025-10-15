@@ -357,8 +357,14 @@
           <div>
             <h3 class="text-base font-semibold text-slate-800">3. Useful Vocabulary</h3>
             <div id="vocab-panel" class="mt-3 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-              <p class="text-sm text-slate-700">Vocabulary placeholder for <span class="font-semibold" data-active-module-label>tones</span>
-                → <span class="font-semibold" data-active-option-label>expert</span>. We'll populate this list next.</p>
+              <p class="text-sm text-slate-700" data-vocab-summary>
+                Vocabulary for <span class="font-semibold" data-active-module-label>tones</span>
+                → <span class="font-semibold" data-active-option-label>expert</span>
+              </p>
+              <p class="mt-2 text-sm text-slate-500" data-vocab-empty hidden>
+                Vocabulary entries are coming soon for this combination.
+              </p>
+              <div class="mt-4 space-y-4" data-vocab-list></div>
             </div>
           </div>
         </div>
@@ -876,10 +882,185 @@
       },
     };
 
+    const vocabularyContent = {
+      tones: {
+        expert: [
+          {
+            term: 'Precise',
+            easyExplanation: 'very exact and clear',
+            examples: [
+              'The scientist gave a precise answer to the question.',
+              'Please explain concepts in a precise way so that every detail is correct and easy to follow.',
+            ],
+          },
+          {
+            term: 'Logical',
+            easyExplanation: 'based on reason and clear thinking',
+            examples: [
+              'Her logical explanation made the problem easy to follow.',
+              'I want your explanations to be logical, showing each step in clear order.',
+            ],
+          },
+          {
+            term: 'Formal',
+            easyExplanation: 'serious and professional style',
+            examples: [
+              'He wrote a formal letter to his teacher.',
+              'Use a formal tone when teaching me, as if writing an academic explanation.',
+            ],
+          },
+          {
+            term: 'Confident',
+            easyExplanation: 'sure and certain',
+            examples: [
+              'The tutor sounded confident about the answer.',
+              'Answer in a confident tone so I can trust the information you give me.',
+            ],
+          },
+          {
+            term: 'Structured',
+            easyExplanation: 'well organized, step by step',
+            examples: [
+              'The lesson was structured with a clear beginning, middle, and end.',
+              'Give your answers in a structured way, starting from the basics and moving to advanced ideas.',
+            ],
+          },
+        ],
+        coach: [
+          {
+            term: 'Encouraging',
+            easyExplanation: 'supportive, makes you want to keep going',
+            examples: [
+              'The coach’s encouraging words helped the team try harder.',
+              'Use an encouraging tone so I feel motivated to keep studying even if I make mistakes.',
+            ],
+          },
+          {
+            term: 'Motivational',
+            easyExplanation: 'gives energy and inspiration',
+            examples: [
+              'The speaker gave a motivational talk to the students.',
+              'Be motivational by reminding me that I can succeed if I stay focused.',
+            ],
+          },
+          {
+            term: 'Direct',
+            easyExplanation: 'clear and straight to the point',
+            examples: [
+              'The teacher gave direct instructions for the project.',
+              'Please be direct in your answers so I don’t get lost in extra details.',
+            ],
+          },
+          {
+            term: 'Firm',
+            easyExplanation: 'strong and steady, not weak',
+            examples: [
+              'The coach gave a firm order to the players.',
+              'Keep a firm tone to guide me when I lose focus or get distracted.',
+            ],
+          },
+          {
+            term: 'Supportive',
+            easyExplanation: 'helps and cares for you',
+            examples: [
+              'She was very supportive when I had trouble in class.',
+              'Sound supportive so I feel safe asking questions without fear of being judged.',
+            ],
+          },
+        ],
+        'study-buddy': [
+          {
+            term: 'Casual',
+            easyExplanation: 'relaxed, everyday style',
+            examples: [
+              'He used a casual tone when talking with friends.',
+              'Use a casual style so it feels like I’m learning with a friend.',
+            ],
+          },
+          {
+            term: 'Friendly',
+            easyExplanation: 'warm and kind',
+            examples: [
+              'The tutor was friendly and easy to talk to.',
+              'Keep your answers friendly so I feel comfortable while studying.',
+            ],
+          },
+          {
+            term: 'Relaxed',
+            easyExplanation: 'calm, not too serious',
+            examples: [
+              'His relaxed voice made everyone feel comfortable.',
+              'Speak in a relaxed way to lower my stress when learning hard topics.',
+            ],
+          },
+          {
+            term: 'Approachable',
+            easyExplanation: 'easy to talk to',
+            examples: [
+              'The teacher was approachable, so students asked many questions.',
+              'Be approachable so I feel free to ask follow-up questions anytime.',
+            ],
+          },
+          {
+            term: 'Simple',
+            easyExplanation: 'easy to understand',
+            examples: [
+              'She gave a simple example to explain the idea.',
+              'Explain in a simple way, using short sentences and easy examples.',
+            ],
+          },
+        ],
+        storyteller: [
+          {
+            term: 'Imaginative',
+            easyExplanation: 'creative, full of pictures in your mind',
+            examples: [
+              'The writer used an imaginative style in the story.',
+              'Teach me in an imaginative way by using creative examples that paint a picture.',
+            ],
+          },
+          {
+            term: 'Playful',
+            easyExplanation: 'fun and light, not too serious',
+            examples: [
+              'The teacher had a playful way of explaining grammar.',
+              'Make your tone playful so learning feels fun instead of boring.',
+            ],
+          },
+          {
+            term: 'Engaging',
+            easyExplanation: 'keeps your attention, interesting',
+            examples: [
+              'The speaker’s engaging style made everyone listen.',
+              'Be engaging so I stay focused and want to continue the lesson.',
+            ],
+          },
+          {
+            term: 'Descriptive',
+            easyExplanation: 'full of details, paints a picture',
+            examples: [
+              'The author gave a descriptive account of the setting.',
+              'Give descriptive examples that help me see the idea clearly in my mind.',
+            ],
+          },
+          {
+            term: 'Expressive',
+            easyExplanation: 'shows strong feelings or emotions',
+            examples: [
+              'She told the story in an expressive way.',
+              'Use an expressive tone so I feel the importance and excitement of the lesson.',
+            ],
+          },
+        ],
+      },
+    };
+
     const moduleButtons = document.querySelectorAll('[data-module-tab]');
     const optionsContainer = document.getElementById('module-options');
     const moduleLabel = document.querySelector('[data-active-module-label]');
     const optionLabel = document.querySelector('[data-active-option-label]');
+    const vocabList = document.querySelector('[data-vocab-list]');
+    const vocabEmptyState = document.querySelector('[data-vocab-empty]');
 
     const getSavedOptionForVocabularyModule = (moduleKey) => {
       const designModuleKey = vocabularyModuleToDesignModuleMap[moduleKey];
@@ -893,10 +1074,74 @@
     let activeOption =
       getSavedOptionForVocabularyModule(activeModule) ?? modules[activeModule].options[0]?.key ?? '';
 
+    const renderVocabularyContent = () => {
+      if (!vocabList) return;
+
+      const entries = vocabularyContent[activeModule]?.[activeOption] ?? [];
+      vocabList.innerHTML = '';
+
+      if (!entries.length) {
+        if (vocabEmptyState) {
+          vocabEmptyState.removeAttribute('hidden');
+        }
+        return;
+      }
+
+      if (vocabEmptyState) {
+        vocabEmptyState.setAttribute('hidden', '');
+      }
+
+      entries.forEach((entry) => {
+        const block = document.createElement('div');
+        block.className =
+          'space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 text-sm text-slate-700';
+
+        const title = document.createElement('h4');
+        title.className = 'text-lg font-semibold text-slate-800';
+        title.textContent = entry.term;
+        block.appendChild(title);
+
+        const easyHeader = document.createElement('p');
+        easyHeader.className = 'text-sm font-semibold text-slate-800';
+        easyHeader.textContent = 'Easy Explanation';
+        block.appendChild(easyHeader);
+
+        const easyText = document.createElement('p');
+        easyText.textContent = entry.easyExplanation;
+        block.appendChild(easyText);
+
+        entry.examples.forEach((example, index) => {
+          const exampleWrapper = document.createElement('div');
+          exampleWrapper.className = 'space-y-1';
+
+          const exampleHeader = document.createElement('p');
+          exampleHeader.className = 'text-sm font-semibold text-slate-800';
+          exampleHeader.textContent = `Example ${index + 1}:`;
+          exampleWrapper.appendChild(exampleHeader);
+
+          const exampleText = document.createElement('p');
+          exampleText.textContent = example;
+          exampleWrapper.appendChild(exampleText);
+
+          block.appendChild(exampleWrapper);
+        });
+
+        vocabList.appendChild(block);
+      });
+    };
+
     const updateVocabularyPlaceholder = () => {
-      moduleLabel.textContent = modules[activeModule].label;
-      const currentOption = modules[activeModule].options.find((opt) => opt.key === activeOption);
-      optionLabel.textContent = currentOption ? currentOption.label : '';
+      const moduleData = modules[activeModule];
+      if (moduleLabel) {
+        moduleLabel.textContent = moduleData?.label ?? '';
+      }
+
+      const currentOption = moduleData?.options.find((opt) => opt.key === activeOption);
+      if (optionLabel) {
+        optionLabel.textContent = currentOption ? currentOption.label : '';
+      }
+
+      renderVocabularyContent();
     };
 
     const renderOptions = () => {

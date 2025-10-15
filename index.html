@@ -21,7 +21,7 @@
 </head>
 
 <body class="bg-white text-slate-900">
-  <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+  <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur" data-page-header>
     <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-4">
       <svg class="h-6 w-6 text-slate-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M6.5 18.5 10 15" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -40,8 +40,9 @@
 
   <aside
     id="floating-nav"
-    class="fixed right-4 top-28 z-40 w-64 rounded-lg border border-slate-200 bg-white shadow-lg"
+    class="fixed right-4 top-28 z-40 w-64 rounded-lg border border-slate-200 bg-white shadow-lg hidden"
     aria-label="Page navigation"
+    aria-hidden="true"
   >
     <div class="flex items-center justify-between border-b border-slate-200 px-5 py-4">
       <div class="flex items-center gap-2 text-base font-semibold text-slate-800">
@@ -54,7 +55,7 @@
       <button
         type="button"
         class="rounded-full border border-slate-200 p-1 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
-        aria-expanded="true"
+        aria-expanded="false"
         aria-controls="floating-nav"
         data-nav-collapse
       >
@@ -77,7 +78,7 @@
   <button
     type="button"
     id="nav-expand"
-    class="fixed right-4 top-28 z-30 hidden rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 shadow"
+    class="fixed right-4 top-28 z-30 rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 shadow"
     aria-controls="floating-nav"
     aria-expanded="false"
   >
@@ -396,7 +397,8 @@
 
   <div
     id="prompt-editor"
-    class="fixed bottom-4 left-4 right-4 z-30 flex h-[40vh] flex-col rounded-xl border-black border-[1px] bg-white shadow-xl"
+    class="fixed bottom-4 left-4 right-4 z-30 hidden flex h-[40vh] flex-col rounded-xl border-black border-[1px] bg-white shadow-xl"
+    aria-hidden="true"
   >
     <div class="flex items-center justify-between border-b border-slate-200 px-5 py-3">
       <div class="text-base font-semibold text-slate-800">Prompt Editor</div>
@@ -404,7 +406,7 @@
         type="button"
         class="rounded-full border border-slate-200 p-1 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
         aria-controls="prompt-editor"
-        aria-expanded="true"
+        aria-expanded="false"
         data-prompt-collapse
       >
         <span class="sr-only">Collapse prompt editor</span>
@@ -436,7 +438,7 @@
   <button
     type="button"
     id="prompt-expand"
-    class="fixed bottom-4 left-1/2 z-20 hidden -translate-x-1/2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-700 shadow"
+    class="fixed bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-700 shadow"
     aria-controls="prompt-editor"
     aria-expanded="false"
   >
@@ -504,6 +506,8 @@
         }
       });
     };
+
+    let syncVocabularySelection = () => {};
 
     // Design concept explorer
     const designModules = {
@@ -844,6 +848,7 @@
             (btn) => btn.dataset.designOption
           );
           updateDesignDetails();
+          syncVocabularySelection(activeDesignModule, activeDesignOption);
         });
 
         designOptionsContainer.appendChild(button);
@@ -855,6 +860,7 @@
         (btn) => btn.dataset.designOption
       );
       updateDesignDetails();
+      syncVocabularySelection(activeDesignModule, activeDesignOption);
     };
 
     designModuleButtons.forEach((button) => {
@@ -889,6 +895,7 @@
         saveSelections(savedSelections);
         updateOverviewPanel();
         updateDesignDetails();
+        syncVocabularySelection(activeDesignModule, activeDesignOption);
       });
     }
 
@@ -909,6 +916,18 @@
         'quick-wins': 'quick-wins',
         'deep-dives': 'deep-dives',
       },
+    };
+
+    const getVocabularyModuleKeyForDesignModule = (designModuleKey) =>
+      Object.keys(vocabularyModuleToDesignModuleMap).find(
+        (vocabKey) => vocabularyModuleToDesignModuleMap[vocabKey] === designModuleKey
+      );
+
+    const normalizeOptionKeyForVocabulary = (vocabModuleKey, optionKey) => {
+      if (optionKey == null) {
+        return optionKey;
+      }
+      return designToVocabularyOptionKeyMap[vocabModuleKey]?.[optionKey] ?? optionKey;
     };
 
     // Vocabulary module + option tabs
@@ -1910,9 +1929,8 @@
       const designModuleKey = vocabularyModuleToDesignModuleMap[moduleKey];
       if (!designModuleKey) return null;
       const savedOptionKey = savedSelections[designModuleKey];
+      const normalizedOptionKey = normalizeOptionKeyForVocabulary(moduleKey, savedOptionKey);
       const options = modules[moduleKey]?.options ?? [];
-      const normalizedOptionKey =
-        designToVocabularyOptionKeyMap[moduleKey]?.[savedOptionKey] ?? savedOptionKey;
       return options.some((opt) => opt.key === normalizedOptionKey) ? normalizedOptionKey : null;
     };
 
@@ -2023,6 +2041,30 @@
       updateVocabularyPlaceholder();
     };
 
+    syncVocabularySelection = (designModuleKey, optionKey) => {
+      const vocabModuleKey = getVocabularyModuleKeyForDesignModule(designModuleKey);
+      if (!vocabModuleKey || activeModule !== vocabModuleKey) {
+        return;
+      }
+
+      const normalizedOptionKey = normalizeOptionKeyForVocabulary(vocabModuleKey, optionKey);
+      if (normalizedOptionKey == null) {
+        return;
+      }
+
+      const availableOptions = modules[vocabModuleKey]?.options ?? [];
+      if (!availableOptions.some((opt) => opt.key === normalizedOptionKey)) {
+        return;
+      }
+
+      if (activeOption === normalizedOptionKey) {
+        return;
+      }
+
+      activeOption = normalizedOptionKey;
+      renderOptions();
+    };
+
     moduleButtons.forEach((button) => {
       button.addEventListener('click', () => {
         const selectedModule = button.dataset.moduleTab;
@@ -2063,8 +2105,21 @@
     const promptPanel = document.getElementById('prompt-editor');
     const promptCollapseButton = document.querySelector('[data-prompt-collapse]');
     const promptExpandButton = document.getElementById('prompt-expand');
+    const pageHeader = document.querySelector('[data-page-header]');
     const promptInput = document.querySelector('[data-prompt-input]');
     const copyPromptButton = document.querySelector('[data-copy-prompt]');
+
+    const hidePageHeader = () => {
+      if (!pageHeader) return;
+      pageHeader.classList.add('hidden');
+      pageHeader.setAttribute('aria-hidden', 'true');
+    };
+
+    const showPageHeader = () => {
+      if (!pageHeader) return;
+      pageHeader.classList.remove('hidden');
+      pageHeader.removeAttribute('aria-hidden');
+    };
 
     if (promptPanel && promptCollapseButton && promptExpandButton) {
       promptCollapseButton.addEventListener('click', () => {
@@ -2073,6 +2128,7 @@
         promptCollapseButton.setAttribute('aria-expanded', 'false');
         promptExpandButton.setAttribute('aria-expanded', 'false');
         promptPanel.setAttribute('aria-hidden', 'true');
+        showPageHeader();
       });
 
       promptExpandButton.addEventListener('click', () => {
@@ -2081,6 +2137,7 @@
         promptCollapseButton.setAttribute('aria-expanded', 'true');
         promptExpandButton.setAttribute('aria-expanded', 'true');
         promptPanel.removeAttribute('aria-hidden');
+        hidePageHeader();
       });
     }
 

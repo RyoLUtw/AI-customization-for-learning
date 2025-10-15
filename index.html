@@ -38,30 +38,53 @@
     </div>
   </header>
 
-  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-10 md:grid-cols-[280px_1fr]">
-    <aside class="md:sticky md:top-28">
-      <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
-        <div class="border-b border-slate-200 px-6 py-4">
-          <div class="flex items-center gap-2 text-base font-semibold text-slate-800">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M4 4h16v16H4z" opacity="0.4"></path>
-              <path d="M8 8h8M8 12h8M8 16h5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-            Navigation
-          </div>
-        </div>
-        <div class="px-6 py-4 text-sm text-slate-700">
-          <nav class="flex flex-col gap-2">
-            <a href="#design" class="transition hover:text-slate-900 hover:underline">Module Customization</a>
-            <a href="#examples" class="transition hover:text-slate-900 hover:underline">Example Prompts</a>
-            <a href="#guiding" class="transition hover:text-slate-900 hover:underline">Guiding Questions</a>
-            <a href="#vocab" class="transition hover:text-slate-900 hover:underline">Vocabulary List</a>
-          </nav>
-        </div>
+  <aside
+    id="floating-nav"
+    class="fixed left-4 top-28 z-40 w-64 rounded-lg border border-slate-200 bg-white shadow-lg"
+    aria-label="Page navigation"
+  >
+    <div class="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+      <div class="flex items-center gap-2 text-base font-semibold text-slate-800">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 4h16v16H4z" opacity="0.4"></path>
+          <path d="M8 8h8M8 12h8M8 16h5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        Navigation
       </div>
-    </aside>
+      <button
+        type="button"
+        class="rounded-full border border-slate-200 p-1 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+        aria-expanded="true"
+        aria-controls="floating-nav"
+        data-nav-collapse
+      >
+        <span class="sr-only">Collapse navigation</span>
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="m7 9 5 5 5-5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="px-6 py-4 text-sm text-slate-700">
+      <nav class="flex flex-col gap-2">
+        <a href="#design" class="transition hover:text-slate-900 hover:underline">Module Customization</a>
+        <a href="#examples" class="transition hover:text-slate-900 hover:underline">Example Prompts</a>
+        <a href="#guiding" class="transition hover:text-slate-900 hover:underline">Guiding Questions</a>
+        <a href="#vocab" class="transition hover:text-slate-900 hover:underline">Vocabulary List</a>
+      </nav>
+    </div>
+  </aside>
 
-    <main class="space-y-16">
+  <button
+    type="button"
+    id="nav-expand"
+    class="fixed left-4 top-28 z-30 hidden rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 shadow"
+    aria-controls="floating-nav"
+    aria-expanded="false"
+  >
+    Show Navigation
+  </button>
+
+  <main data-main-content class="mx-auto max-w-7xl space-y-16 px-4 py-10 pb-[30vh] md:ml-[300px]">
       <section id="design" class="scroll-mt-24">
         <h2 class="text-2xl font-bold md:text-3xl">Module Customization</h2>
         <div class="mt-4 grid gap-4 md:grid-cols-2">
@@ -370,7 +393,55 @@
         </div>
       </section>
     </main>
+
+  <div
+    id="prompt-editor"
+    class="fixed bottom-4 left-4 right-4 z-30 flex h-[25vh] flex-col rounded-xl border border-slate-200 bg-white shadow-xl"
+  >
+    <div class="flex items-center justify-between border-b border-slate-200 px-5 py-3">
+      <div class="text-base font-semibold text-slate-800">Prompt Editor</div>
+      <button
+        type="button"
+        class="rounded-full border border-slate-200 p-1 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+        aria-controls="prompt-editor"
+        aria-expanded="true"
+        data-prompt-collapse
+      >
+        <span class="sr-only">Collapse prompt editor</span>
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="m7 9 5 5 5-5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="flex flex-1 min-h-0 flex-col gap-3 p-5">
+      <label for="prompt-input" class="text-sm font-medium text-slate-700">Your prompt</label>
+      <textarea
+        id="prompt-input"
+        data-prompt-input
+        class="flex-1 resize-none overflow-y-auto rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-800 outline-none transition focus:border-slate-400 focus:bg-white"
+        placeholder="Draft or edit your prompt here..."
+      ></textarea>
+      <div class="flex justify-end gap-2">
+        <button
+          type="button"
+          data-copy-prompt
+          class="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+        >
+          Copy Prompt
+        </button>
+      </div>
+    </div>
   </div>
+
+  <button
+    type="button"
+    id="prompt-expand"
+    class="fixed bottom-4 left-1/2 z-20 hidden -translate-x-1/2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-700 shadow"
+    aria-controls="prompt-editor"
+    aria-expanded="false"
+  >
+    Show Prompt Editor
+  </button>
 
   <script>
     // Module illustration placeholders (update paths as needed)
@@ -829,6 +900,15 @@
       tools: 'tools-pack',
       energy: 'energy-source',
       gear: 'gear-settings',
+    };
+
+    const designToVocabularyOptionKeyMap = {
+      gear: {
+        'easy-hard': 'easy-to-hard',
+        'hard-easy': 'hard-to-easy',
+        'quick-wins': 'quick-wins',
+        'deep-dives': 'deep-dives',
+      },
     };
 
     // Vocabulary module + option tabs
@@ -1831,7 +1911,9 @@
       if (!designModuleKey) return null;
       const savedOptionKey = savedSelections[designModuleKey];
       const options = modules[moduleKey]?.options ?? [];
-      return options.some((opt) => opt.key === savedOptionKey) ? savedOptionKey : null;
+      const normalizedOptionKey =
+        designToVocabularyOptionKeyMap[moduleKey]?.[savedOptionKey] ?? savedOptionKey;
+      return options.some((opt) => opt.key === normalizedOptionKey) ? normalizedOptionKey : null;
     };
 
     let activeModule = 'tones';
@@ -1955,6 +2037,87 @@
 
     styleButtons(moduleButtons, activeModule, (btn) => btn.dataset.moduleTab);
     renderOptions();
+
+    const navPanel = document.getElementById('floating-nav');
+    const navCollapseButton = document.querySelector('[data-nav-collapse]');
+    const navExpandButton = document.getElementById('nav-expand');
+
+    if (navPanel && navCollapseButton && navExpandButton) {
+      navCollapseButton.addEventListener('click', () => {
+        navPanel.classList.add('hidden');
+        navExpandButton.classList.remove('hidden');
+        navCollapseButton.setAttribute('aria-expanded', 'false');
+        navExpandButton.setAttribute('aria-expanded', 'false');
+        navPanel.setAttribute('aria-hidden', 'true');
+      });
+
+      navExpandButton.addEventListener('click', () => {
+        navPanel.classList.remove('hidden');
+        navExpandButton.classList.add('hidden');
+        navCollapseButton.setAttribute('aria-expanded', 'true');
+        navExpandButton.setAttribute('aria-expanded', 'true');
+        navPanel.removeAttribute('aria-hidden');
+      });
+    }
+
+    const promptPanel = document.getElementById('prompt-editor');
+    const promptCollapseButton = document.querySelector('[data-prompt-collapse]');
+    const promptExpandButton = document.getElementById('prompt-expand');
+    const promptInput = document.querySelector('[data-prompt-input]');
+    const copyPromptButton = document.querySelector('[data-copy-prompt]');
+
+    if (promptPanel && promptCollapseButton && promptExpandButton) {
+      promptCollapseButton.addEventListener('click', () => {
+        promptPanel.classList.add('hidden');
+        promptExpandButton.classList.remove('hidden');
+        promptCollapseButton.setAttribute('aria-expanded', 'false');
+        promptExpandButton.setAttribute('aria-expanded', 'false');
+        promptPanel.setAttribute('aria-hidden', 'true');
+      });
+
+      promptExpandButton.addEventListener('click', () => {
+        promptPanel.classList.remove('hidden');
+        promptExpandButton.classList.add('hidden');
+        promptCollapseButton.setAttribute('aria-expanded', 'true');
+        promptExpandButton.setAttribute('aria-expanded', 'true');
+        promptPanel.removeAttribute('aria-hidden');
+      });
+    }
+
+    if (copyPromptButton && promptInput) {
+      const originalCopyText = copyPromptButton.textContent;
+      copyPromptButton.addEventListener('click', async () => {
+        const textToCopy = promptInput.value;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(textToCopy);
+          } else {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            tempInput.setAttribute('readonly', '');
+            tempInput.style.position = 'absolute';
+            tempInput.style.left = '-9999px';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+          }
+          copyPromptButton.textContent = 'Copied!';
+          copyPromptButton.classList.add('bg-slate-900', 'text-white');
+          setTimeout(() => {
+            copyPromptButton.textContent = originalCopyText;
+            copyPromptButton.classList.remove('bg-slate-900', 'text-white');
+          }, 2000);
+        } catch (error) {
+          copyPromptButton.textContent = 'Copy Failed';
+          copyPromptButton.classList.add('bg-rose-100', 'text-rose-700');
+          setTimeout(() => {
+            copyPromptButton.textContent = originalCopyText;
+            copyPromptButton.classList.remove('bg-rose-100', 'text-rose-700');
+          }, 2000);
+        }
+      });
+    }
   </script>
 </body>
 

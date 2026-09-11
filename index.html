@@ -11,11 +11,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     body {
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
     }
 
     .tab-panel[hidden] {
       display: none;
+    }
+    .language-switch { margin-left: auto; flex-shrink: 0; }
+    .language-switch button { min-height: 44px; padding: 0.5rem 0.75rem; border-radius: 9999px; }
+    .language-switch button[aria-pressed="true"] { background: #0f172a; color: white; }
+    .language-switch button:focus-visible { outline: 2px solid #2563eb; outline-offset: 3px; }
+    #floating-nav, #nav-expand { top: calc(var(--page-header-height, 6rem) + 1rem); }
+    @media (max-width: 640px) {
+      [data-page-header] > div { flex-wrap: wrap; gap: 0.5rem; }
+      [data-header-copy] { order: 3; flex-basis: 100%; }
     }
   </style>
 </head>
@@ -29,11 +38,15 @@
         <path d="M7.5 9 10 5l4 6" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="m14 9 4 6-2.5 3.5" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
-      <div>
+      <div data-header-copy>
         <h1 class="text-xl font-bold md:text-2xl">Build-a-Bot Vocabulary &amp; Prompt Guide</h1>
         <p class="text-xs text-slate-600 md:text-sm">
           Design how your AI should teach you — with clear tone, connections, approach, motivation, and pacing.
         </p>
+      </div>
+      <div class="language-switch flex rounded-full border border-slate-300 p-1 text-sm" role="group" aria-label="Language / 語言" data-language-switch>
+        <button type="button" lang="en" data-language="en" aria-pressed="true">English</button>
+        <button type="button" lang="zh-TW" data-language="zh-TW" aria-pressed="false">繁體中文</button>
       </div>
     </div>
   </header>
@@ -447,7 +460,32 @@
     Show Prompt Editor
   </button>
 
+  <script src="locale-zh-TW.js"></script>
   <script>
+    const LANGUAGE_STORAGE_KEY = 'build-a-bot-language';
+    let currentLanguage = 'en';
+    try {
+      if (localStorage.getItem(LANGUAGE_STORAGE_KEY) === 'zh-TW') currentLanguage = 'zh-TW';
+    } catch { /* Language switching also works when storage is unavailable. */ }
+    const normalizeText = (text) => text.replace(/\s+/g, ' ').trim();
+    const t = (text) => currentLanguage === 'zh-TW' ? (zhTW[normalizeText(text)] ?? text) : text;
+
+    // Capture authored copy once. Dynamic content is translated by its render function.
+    const staticTextNodes = [];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      if (node.parentElement.closest('script, style, [data-language-switch]')) continue;
+      if (normalizeText(node.nodeValue)) staticTextNodes.push([node, node.nodeValue]);
+    }
+    const staticAttributes = [];
+    document.querySelectorAll('[aria-label], [placeholder], [alt]').forEach((element) => {
+      if (element.closest('[data-language-switch]')) return;
+      ['aria-label', 'placeholder', 'alt'].forEach((attribute) => {
+        if (element.hasAttribute(attribute)) staticAttributes.push([element, attribute, element.getAttribute(attribute)]);
+      });
+    });
+    const englishTitle = document.title;
     // Module illustration placeholders (update paths as needed)
     const BRAIN_CHIP_IMAGE = 'brain_chip.png';
     const VISION_SENSOR_IMAGE = 'vision_sensor.png';
@@ -726,6 +764,14 @@
       },
     };
 
+    Object.entries(zhTWDesign).forEach(([key, [description, ...options]]) => {
+      zhTW[designModules[key].description] = description;
+      designModules[key].options.forEach((option, index) => {
+        zhTW[option.description] = options[index][0];
+        zhTW[option.example] = options[index][1];
+      });
+    });
+
     const designModuleButtons = document.querySelectorAll('[data-design-module]');
     const designOptionsContainer = document.getElementById('design-options');
     const designOptionHeading = document.querySelector('[data-design-option-heading]');
@@ -784,7 +830,7 @@
       Object.entries(overviewItems).forEach(([moduleKey, element]) => {
         const savedKey = savedSelections[moduleKey];
         const optionLabel = designModules[moduleKey]?.options.find((opt) => opt.key === savedKey)?.label;
-        element.textContent = optionLabel ?? '-';
+        element.textContent = t(optionLabel ?? '-');
       });
     };
 
@@ -801,27 +847,27 @@
       const optionData = moduleData?.options.find((opt) => opt.key === activeDesignOption);
 
       if (designOptionHeading) {
-        designOptionHeading.textContent = optionData?.label ?? '';
+        designOptionHeading.textContent = t(optionData?.label ?? '');
       }
-      designDescription.textContent = optionData?.description ?? '';
-      designExample.textContent = optionData?.example ?? '';
+      designDescription.textContent = t(optionData?.description ?? '');
+      designExample.textContent = t(optionData?.example ?? '');
       if (moduleDescriptionElement) {
-        moduleDescriptionElement.textContent = moduleData?.description ?? '';
+        moduleDescriptionElement.textContent = t(moduleData?.description ?? '');
       }
       if (designModuleImageElement) {
         designModuleImageElement.dataset.fallbackApplied = 'false';
         const nextImage = designModuleImageMap[activeDesignModule] ?? DEFAULT_MODULE_IMAGE;
         designModuleImageElement.src = nextImage || DEFAULT_MODULE_IMAGE;
         const moduleLabel = moduleData?.label ?? 'Module illustration';
-        designModuleImageElement.alt = `${moduleLabel} illustration`;
+        designModuleImageElement.alt = currentLanguage === 'zh-TW' ? `${t(moduleLabel)}示意圖` : `${moduleLabel} illustration`;
       }
       if (designSelectButton) {
         designSelectButton.textContent =
-          savedSelections[activeDesignModule] === activeDesignOption ? 'Selected' : 'Select';
+          t(savedSelections[activeDesignModule] === activeDesignOption ? 'Selected' : 'Select');
       }
     };
 
-    const renderDesignOptions = () => {
+    const renderDesignOptions = (syncSelection = true) => {
       designOptionsContainer.innerHTML = '';
 
       const availableOptions = designModules[activeDesignModule]?.options ?? [];
@@ -837,7 +883,7 @@
         button.dataset.designOption = option.key;
         button.className =
           'rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100';
-        button.textContent = option.label;
+        button.textContent = t(option.label);
         button.setAttribute('role', 'tab');
         const isActive = option.key === activeDesignOption;
         button.setAttribute('aria-selected', String(isActive));
@@ -862,7 +908,7 @@
         (btn) => btn.dataset.designOption
       );
       updateDesignDetails();
-      syncVocabularySelection(activeDesignModule, activeDesignOption);
+      if (syncSelection) syncVocabularySelection(activeDesignModule, activeDesignOption);
     };
 
     designModuleButtons.forEach((button) => {
@@ -1920,6 +1966,14 @@
       },
     };
 
+    const translatedVocabulary = Object.fromEntries(Object.entries(zhTWVocabulary).map(([module, options]) => [
+      module,
+      Object.fromEntries(Object.entries(options).map(([key, rows]) => [key, rows.split('\n').map((row) => {
+        const [term, easyExplanation, ...examples] = row.split('|');
+        return { term, easyExplanation, examples };
+      })])),
+    ]));
+
     const moduleButtons = document.querySelectorAll('[data-module-tab]');
     const optionsContainer = document.getElementById('module-options');
     const moduleLabel = document.querySelector('[data-active-module-label]');
@@ -1943,7 +1997,8 @@
     const renderVocabularyContent = () => {
       if (!vocabList) return;
 
-      const entries = vocabularyContent[activeModule]?.[activeOption] ?? [];
+      const content = currentLanguage === 'zh-TW' ? translatedVocabulary : vocabularyContent;
+      const entries = content[activeModule]?.[activeOption] ?? [];
       vocabList.innerHTML = '';
 
       if (!entries.length) {
@@ -1969,7 +2024,7 @@
 
         const easyHeader = document.createElement('p');
         easyHeader.className = 'text-sm font-semibold text-slate-800';
-        easyHeader.textContent = 'Easy Explanation';
+        easyHeader.textContent = t('Easy Explanation');
         block.appendChild(easyHeader);
 
         const easyText = document.createElement('p');
@@ -1982,7 +2037,7 @@
 
           const exampleHeader = document.createElement('p');
           exampleHeader.className = 'text-sm font-semibold text-slate-800';
-          exampleHeader.textContent = `Example ${index + 1}:`;
+          exampleHeader.textContent = currentLanguage === 'zh-TW' ? `範例 ${index + 1}：` : `Example ${index + 1}:`;
           exampleWrapper.appendChild(exampleHeader);
 
           const exampleText = document.createElement('p');
@@ -1999,12 +2054,12 @@
     const updateVocabularyPlaceholder = () => {
       const moduleData = modules[activeModule];
       if (moduleLabel) {
-        moduleLabel.textContent = moduleData?.label ?? '';
+        moduleLabel.textContent = t(moduleData?.label ?? '');
       }
 
       const currentOption = moduleData?.options.find((opt) => opt.key === activeOption);
       if (optionLabel) {
-        optionLabel.textContent = currentOption ? currentOption.label : '';
+        optionLabel.textContent = currentOption ? t(currentOption.label) : '';
       }
 
       renderVocabularyContent();
@@ -2025,7 +2080,7 @@
         button.dataset.optionTab = option.key;
         button.className =
           'option-trigger rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100';
-        button.textContent = option.label;
+        button.textContent = t(option.label);
         button.setAttribute('role', 'tab');
         const isActive = option.key === activeOption;
         button.setAttribute('aria-selected', String(isActive));
@@ -2108,14 +2163,11 @@
     const promptCollapseButton = document.querySelector('[data-prompt-collapse]');
     const promptExpandButton = document.getElementById('prompt-expand');
     const pageHeader = document.querySelector('[data-page-header]');
+    new ResizeObserver(() => {
+      document.documentElement.style.setProperty('--page-header-height', `${pageHeader.offsetHeight}px`);
+    }).observe(pageHeader);
     const promptInput = document.querySelector('[data-prompt-input]');
     const copyPromptButton = document.querySelector('[data-copy-prompt]');
-
-    const hidePageHeader = () => {
-      if (!pageHeader) return;
-      pageHeader.classList.add('hidden');
-      pageHeader.setAttribute('aria-hidden', 'true');
-    };
 
     const showPageHeader = () => {
       if (!pageHeader) return;
@@ -2139,12 +2191,12 @@
         promptCollapseButton.setAttribute('aria-expanded', 'true');
         promptExpandButton.setAttribute('aria-expanded', 'true');
         promptPanel.removeAttribute('aria-hidden');
-        hidePageHeader();
+        // Keep the language switch available while editing a prompt.
       });
     }
 
     if (copyPromptButton && promptInput) {
-      const originalCopyText = copyPromptButton.textContent;
+      let copyResetTimer;
       copyPromptButton.addEventListener('click', async () => {
         const textToCopy = promptInput.value;
         try {
@@ -2161,22 +2213,54 @@
             document.execCommand('copy');
             document.body.removeChild(tempInput);
           }
-          copyPromptButton.textContent = 'Copied!';
+          copyPromptButton.dataset.copyState = 'Copied!';
+          copyPromptButton.textContent = t('Copied!');
           copyPromptButton.classList.add('bg-slate-900', 'text-white');
-          setTimeout(() => {
-            copyPromptButton.textContent = originalCopyText;
+          clearTimeout(copyResetTimer);
+          copyResetTimer = setTimeout(() => {
+            delete copyPromptButton.dataset.copyState;
+            copyPromptButton.textContent = t('Copy Prompt');
             copyPromptButton.classList.remove('bg-slate-900', 'text-white');
           }, 2000);
         } catch (error) {
-          copyPromptButton.textContent = 'Copy Failed';
+          copyPromptButton.dataset.copyState = 'Copy Failed';
+          copyPromptButton.textContent = t('Copy Failed');
           copyPromptButton.classList.add('bg-rose-100', 'text-rose-700');
-          setTimeout(() => {
-            copyPromptButton.textContent = originalCopyText;
+          clearTimeout(copyResetTimer);
+          copyResetTimer = setTimeout(() => {
+            delete copyPromptButton.dataset.copyState;
+            copyPromptButton.textContent = t('Copy Prompt');
             copyPromptButton.classList.remove('bg-rose-100', 'text-rose-700');
           }, 2000);
         }
       });
     }
+    const applyLanguage = (language) => {
+      currentLanguage = language;
+      document.documentElement.lang = language;
+      document.title = t(englishTitle);
+      staticTextNodes.forEach(([node, original]) => {
+        if (node.isConnected) node.nodeValue = currentLanguage === 'en' ? original : t(original);
+      });
+      staticAttributes.forEach(([element, attribute, original]) => {
+        element.setAttribute(attribute, t(original));
+      });
+      document.querySelectorAll('[data-language]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.language === language));
+      });
+      // Re-render in place without resetting selected tabs, saved options or the draft.
+      renderDesignOptions(false);
+      updateOverviewPanel();
+      renderOptions();
+      copyPromptButton.textContent = t(copyPromptButton.dataset.copyState || 'Copy Prompt');
+    };
+    document.querySelectorAll('[data-language]').forEach((button) => {
+      button.addEventListener('click', () => {
+        applyLanguage(button.dataset.language);
+        try { localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage); } catch { /* Optional persistence. */ }
+      });
+    });
+    applyLanguage(currentLanguage);
   </script>
 </body>
 
